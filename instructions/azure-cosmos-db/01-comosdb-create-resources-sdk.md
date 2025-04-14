@@ -177,7 +177,7 @@ In this section of the exercise you add code in specified areas of the projects 
     );
     ```
 
-    >Note: It's a best practice to use the **DefaultAzureCredential** from the *Azure Identity* library. This can require some additional configuration requirments in Azure depending on how your subscription is set up. 
+    >Note: It's a best practice to use the **DefaultAzureCredential** from the *Azure Identity* library. This can require some additional configuration requirements in Azure depending on how your subscription is set up. 
 
 1. Add the following code in the space after the **// Create a database if it doesn't already exist** comment. 
 
