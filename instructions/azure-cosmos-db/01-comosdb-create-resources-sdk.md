@@ -98,68 +98,67 @@ Now it's time to replace the template code in the **Program.cs** file using the 
 
 1. Replace any existing code with the following  following code snippet after the **using** statements. Be sure to replace the placeholder values for **\<documentEndpoint>** and **\<primaryKey>** following the directions in the code comments.
 
-    The code provides the overall structure of the app, and some necessary elements. Review the comments in the code, you add code in areas specified in the instructions. 
+    The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in the areas specified later in the exercise. 
 
     ```csharp
     using Microsoft.Azure.Cosmos;
     
-    namespace CosmosExercise
+    namespace CosmosExercise;
+    
+    // This class represents a product in the Cosmos DB container
+    public class Product
     {
-        // This class represents a product in the Cosmos DB container
-        public class Product
+        public string? id { get; set; }
+        public string? name { get; set; }
+        public string? description { get; set; }
+    }
+    
+    public class Program
+    {
+        // Cosmos DB account URL - replace with your actual Cosmos DB account URL
+        static string cosmosDbAccountUrl = "<documentEndpoint>";
+    
+        // Cosmos DB account key - replace with your actual Cosmos DB account key
+        static string accountKey = "<primaryKey>";
+    
+        // Name of the database to create or use
+        static string databaseName = "myDatabase";
+    
+        // Name of the container to create or use
+        static string containerName = "myContainer";
+    
+        public static async Task Main(string[] args)
         {
-            public string? id { get; set; }
-            public string? name { get; set; }
-            public string? description { get; set; }
-        }
+            // Create the Cosmos DB client using the account URL and key
     
-        public class Program
-        {
-            // Cosmos DB account URL - replace with your actual Cosmos DB account URL
-            static string cosmosDbAccountUrl = "<documentEndpoint>";
     
-            // Cosmos DB account key - replace with your actual Cosmos DB account key
-            static string accountKey = "<primaryKey>";
-    
-            // Name of the database to create or use
-            static string databaseName = "myDatabase";
-    
-            // Name of the container to create or use
-            static string containerName = "myContainer";
-    
-            public static async Task Main(string[] args)
+            try
             {
-                // Create the Cosmos DB client using the account URL and key
+                // Create a database if it doesn't already exist
     
     
-                try
-                {
-                    // Create a database if it doesn't already exist
+                // Create a container with a specified partition key
     
     
-                    // Create a container with a specified partition key
+                // Define a typed item (Product) to add to the container
     
     
-                    // Define a typed item (Product) to add to the container
+                // Add the item to the container
+                // The partition key ensures the item is stored in the correct partition
     
     
-                    // Add the item to the container
-                    // The partition key ensures the item is stored in the correct partition
-    
-    
-                }
-                catch (CosmosException ex)
-                {
-                    // Handle Cosmos DB-specific exceptions
-                    // Log the status code and error message for debugging
-                    Console.WriteLine($"Cosmos DB Error: {ex.StatusCode} - {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    // Handle general exceptions
-                    // Log the error message for debugging
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
+            }
+            catch (CosmosException ex)
+            {
+                // Handle Cosmos DB-specific exceptions
+                // Log the status code and error message for debugging
+                Console.WriteLine($"Cosmos DB Error: {ex.StatusCode} - {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                // Handle general exceptions
+                // Log the error message for debugging
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
     }
