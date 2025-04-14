@@ -1,21 +1,16 @@
 ---
-title: Exercise Instructions
+title: Exercises for Azure developers
 permalink: index.html
 layout: home
 ---
 
-# Exercises
+# Develop solutions for Microsoft Azure
 
 This page lists exercises associated with Microsoft skilling content on [Microsoft Learn](https://learn.microsoft.com)
 
-<!-- You can edit the paragraph above to provide a more specific description and links to content on Learn.
+The following exercises are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers perform when building and deploying solutions to Microsoft Azure.
 
-Include the following note if an Azure subscription is required (or add something similar for any other requirements, such as a Microsoft 365 account).
-
-> **Note**: To complete these exercises, you will need a [Microsoft Azure subscription](https://azure.microsoft.com/free) in which you have sufficient permissions to create and configure the required resources.
-
-If a more complex setup is required, create a separate markdown file with setup instructions at \Instructions\Labs\00-setup.md - being sure to include "lab.title"" metadata at the top so it shows up the list below
--->
+> **Note**: To complete the exercises, you'll need an Azure subscription in which you have sufficient permissions and quota to provision the necessary Azure resources. If you don't already have one, you can sign up for an [Azure account](https://azure.microsoft.com/free). Be sure to review the **Before you start** section in each exercise for the full list of requirements specific to each exercise.
 
 ## Topic areas
 {% assign exercises = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
