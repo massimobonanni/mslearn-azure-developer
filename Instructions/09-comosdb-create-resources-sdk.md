@@ -237,7 +237,7 @@ Now that the project is finished it's time to run the application and verify the
 
 1. In the Azure portal, navigate to the Azure Cosmos DB resource you created earlier. Select **Data Explorer** in the left navigation. In **Data Explorer**, select **myDatabase** and then expand **myContainer**. You can view the item you created by selecting **Items**.
 
-    ![Screenshot showing the location of Items in the Data Explorer.](./Media/09/cosmos-data-explorer.png)
+    ![Screenshot showing the location of Items in the Data Explorer.](./media/09/cosmos-data-explorer.png)
 
 ## Clean up resources
 

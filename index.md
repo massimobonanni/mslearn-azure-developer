@@ -13,7 +13,7 @@ The following exercises are designed to provide you with a hands-on learning exp
 > **Note**: To complete the exercises, you'll need an Azure subscription in which you have sufficient permissions and quota to provision the necessary Azure resources. If you don't already have one, you can sign up for an [Azure account](https://azure.microsoft.com/free). Be sure to review the **Before you start** section in each exercise for the full list of requirements specific to each exercise.
 
 ## Topic areas
-{% assign exercises = site.pages | where_exp:"page", "page.url contains '/Instructions'" %}
+{% assign exercises = site.pages | where_exp:"page", "page.url contains '/instructions'" %}
 {% assign grouped_exercises = exercises | group_by: "lab.topic" %}
 
 <ul>
