@@ -37,7 +37,7 @@ Before you begin, make sure you have the following requirements in place:
 
 In this section, you use Visual Studio Code to create a local Azure Functions project in C#. Later in this exercise, you publish your function code to Azure.
 
-1. In Visual Studio Code, press F1 to open the command palette and search for and run the command `Azure Functions: Create New Project...`.
+1. In Visual Studio Code, press F1 to open the command palette and search for and run the command **Azure Functions: Create New Project...**.
 
 1. Select the directory location for your project workspace and choose **Select**. You should either create a new folder or choose an empty folder for the project workspace. Don't choose a project folder that is already part of a workspace.
 
