@@ -1,12 +1,13 @@
 ---
 lab:
+    topic: Azure App Service
     title: 'Swap deployment slots in Azure App Service'
     description: 'Learn how to swap deployment slots in Azure App Service. In this exercise you: deploy a simple app to App Service; make a small change to the app and deploy that to a staging slot; and finally swap the slots so the updated app is in production.'
 ---
 
 # Swap deployment slots in Azure App Service
 
-In this exercise, you deploy a basic HTML+CSS site to Azure App Service by using the Azure CLI **az webapp up** command. Next, you update the code and deploy the change to a staging slot. Finally, you swap the slots.
+In this exercise, you deploy a basic HTML+CSS site to Azure App Service by using the Azure CLI **az  webapp up** command. Next, you update the code and deploy the change to a staging slot. Finally, you swap the slots.
 
 Tasks performed in this exercise:
 
@@ -15,7 +16,7 @@ Tasks performed in this exercise:
 * Make a change to the sample app and deploy it to the staging slot.
 * Swap the staging and default production slots to move the changes to the production slot.
 
-This exercise should take approximately **20** minutes to complete.
+This exercise should take approximately **30** minutes to complete.
 
 ## Before you start
 

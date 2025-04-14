@@ -1,5 +1,6 @@
 ---
 lab:
+    topic: Azure App Service
     title: 'Deploy a containerized app to Azure App Service'
     description: 'Learn how to deploy a containerized app to Azure App Service.'
 ---
@@ -10,7 +11,7 @@ In this exercise you deploy a simple containerized app to Azure App Service.
 
 Tasks performed in this exercise:
 
-* Create an Azure App Service resource for a containerize app
+* Create an Azure App Service resource and deploy a containerized app
 * View the results
 * Clean up resources
 
