@@ -18,7 +18,7 @@ If a more complex setup is required, create a separate markdown file with setup 
 -->
 
 ## Topic areas
-{% assign exercises = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %}
+{% assign exercises = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
 {% assign grouped_exercises = exercises | group_by: "lab.topic" %}
 
 <ul>
