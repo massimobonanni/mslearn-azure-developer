@@ -2,7 +2,7 @@
 lab:
     topic: Azure container services
     title: 'Deploy a container to Azure Container Instances with the Azure CLI'
-    description: 'Learn how to use Azure CLI commands to build and run container images with Azure Container Registry Tasks.'
+    description: 'Learn how to use Azure CLI commands to deploy a container to Azure Container Instances.'
 ---
 
 # Build and run a container image with Azure Container Registry Tasks
