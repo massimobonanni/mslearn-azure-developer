@@ -82,7 +82,7 @@ You can check the containers build status with the **az container show** command
     aci-wt.eastus.azurecontainer.io         Succeeded
     ```
 
-    > **! Note:** If your container is in the **Creating** state, wait a few moments and run the command again until you see the **Succeeded** state.
+    > **Note:** If your container is in the **Creating** state, wait a few moments and run the command again until you see the **Succeeded** state.
 
 1. From a browser, navigate to your container's FQDN to see it running. The image isn't running You may get a warning that the site isn't safe.
 
@@ -94,4 +94,4 @@ Now that you finished the exercise, you should delete the cloud resources you cr
 1. On the toolbar, select **Delete resource group**.
 1. Enter the resource group name and confirm that you want to delete it.
 
-> **! CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this exercise will also be deleted.
+> **CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this exercise will also be deleted.
