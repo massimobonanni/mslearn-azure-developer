@@ -33,13 +33,13 @@ Before you begin, make sure you have the following requirements in place:
 
 1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
 
-    ```
+    ```azurecli
     az group create --location useast --name <myResourceGroup>
     ```
 
 1. Run the following command to ensure you have the latest version of the Azure Container Apps extension for the CLI is installed.
 
-    ```bash
+    ```azurecli
     az extension add --name containerapp --upgrade
     ```
 
