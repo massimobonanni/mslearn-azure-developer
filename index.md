@@ -4,9 +4,7 @@ permalink: index.html
 layout: home
 ---
 
-# Develop solutions for Microsoft Azure
-
-This page lists exercises associated with Microsoft skilling content on [Microsoft Learn](https://learn.microsoft.com)
+# Overview
 
 The following exercises are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers perform when building and deploying solutions to Microsoft Azure.
 
@@ -29,6 +27,6 @@ The following exercises are designed to provide you with a hands-on learning exp
 | [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) <br/> {{ activity.lab.description }} |
 
 {% endfor %}
-| <a href="#develop-solutions-for-microsoft-azure">Return to top</a> |
+| <a href="#overview">Return to top</a> |
 {% endfor %}
 
