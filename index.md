@@ -4,7 +4,7 @@ permalink: index.html
 layout: home
 ---
 
-# Overview
+## Overview
 
 The following exercises are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers perform when building and deploying solutions to Microsoft Azure.
 
