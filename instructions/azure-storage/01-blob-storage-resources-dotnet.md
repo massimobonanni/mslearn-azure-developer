@@ -107,30 +107,30 @@ Now it's time to replace the template code in the **Program.cs** file.
     
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
-    ```csharp
-    using Azure.Storage.Blobs;
-    using Azure.Storage.Blobs.Models;
-    
-    Console.WriteLine("Azure Blob Storage exercise\n");
-    
-    // Run the examples asynchronously, wait for the results before proceeding
-    ProcessAsync().GetAwaiter().GetResult();
-    
-    Console.WriteLine("Press enter to exit the sample application.");
-    Console.ReadLine();
-    
-    static async Task ProcessAsync()
-    {
-        // Replace CONNECTION_STRING with the connection string you saved earlier
-        string storageConnectionString = "CONNECTION_STRING";
-        
-        // Create a client that can authenticate with a connection string
-        BlobServiceClient blobServiceClient = new BlobServiceClient(storageConnectionString);
-    
-        // COPY EXAMPLE CODE BELOW HERE
-    
-    }
-    ```
+   ```csharp
+   using Azure.Storage.Blobs;
+   using Azure.Storage.Blobs.Models;
+   
+   Console.WriteLine("Azure Blob Storage exercise\n");
+   
+   // Run the examples asynchronously, wait for the results before proceeding
+   ProcessAsync().GetAwaiter().GetResult();
+   
+   Console.WriteLine("Press enter to exit the sample application.");
+   Console.ReadLine();
+   
+   static async Task ProcessAsync()
+   {
+       // Replace CONNECTION_STRING with the connection string you saved earlier
+       string storageConnectionString = "CONNECTION_STRING";
+       
+       // Create a client that can authenticate with a connection string
+       BlobServiceClient blobServiceClient = new BlobServiceClient(storageConnectionString);
+   
+       // COPY EXAMPLE CODE BELOW HERE
+   
+   }
+   ```
 
 ### Add code to complete the application 
 
