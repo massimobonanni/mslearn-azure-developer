@@ -73,13 +73,13 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
 ## Create the console application
 
-NNow that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in your local environment.
+Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in your local environment.
 
 1. Create a folder named **blobstorage** for the project.
 
-1. Start **Visual Studio Code** and select the **File | Open Folder...** option in the menu bar to open the folder you created.
+1. Start **Visual Studio Code** and select the **File > Open Folder...** option in the menu bar to open the folder you created.
 
-1. In the menu bar select the **Terminal | New Terminal** to open a terminal is Visual Studio Code. 
+1. In the menu bar select the **Terminal > New Terminal** to open a terminal is Visual Studio Code. 
 
 1. Run the following command in the terminal to create the .NET console app.
 
@@ -252,7 +252,7 @@ dotnet build
 dotnet run
 ```
 
-There are many prompts in the app to allow you to take the time to see what's happening in the portal after each step. Just open the Azure Portal and navigate to the storage account you created earlier. Then select **Data storage | Containers** in the resource pane.
+There are many prompts in the app to allow you to take the time to see what's happening in the portal after each step. Just open the Azure Portal and navigate to the storage account you created earlier. Then select **Data storage > Containers** in the resource pane.
 
 ## Clean up resources
 
