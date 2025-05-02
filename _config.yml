@@ -12,4 +12,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-mentions
   - jemoji
-markdown: commonmark
+markdown: kramdown
+kramdown:
+   syntax_highlighter_opts:
+      disable : false
