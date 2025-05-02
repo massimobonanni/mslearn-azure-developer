@@ -48,8 +48,8 @@ In this section of exercise you create a resource group and Azure Storage accoun
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
 1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
-
-    ```
+    
+    ```azurecli
     az group create --location useast --name <myResourceGroup>
     ```
 
@@ -57,17 +57,17 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
     >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
 
-    ```
+    ```bash
     myStorageAcct=storageExercise$RANDOM
     ```
 
-    ```
+    ```bash
     az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
     ```
 
 1.  Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
 
-    ```
+    ```azurecli
     az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
     ```
 
@@ -83,19 +83,19 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Run the following command in the terminal to create the .NET console app.
 
-    ```
+    ```bash
     dotnet new console --framework net8.0
     ```
 
 1. Run the following commands to add the **Azure.Storage.Blobs** package to the project.
 
-    ```
+    ```bash
     dotnet add package Azure.Storage.Blobs
     ```
 
 1. Run the following command to create a **data** folder in your project. 
 
-    ```
+    ```bash
     mkdir data
     ```
 
@@ -104,10 +104,10 @@ Now it's time to replace the template code in the **Program.cs** file.
 ### Add the starting code for the project
 
 1. Open the *Program.cs* file and replace any existing code with the following code.  Be sure to replace the placeholder value for **storageConnectionString** following the directions in the code comments.
-
+    
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
-    ```
+    ```csharp
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
     
@@ -140,7 +140,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after the **// COPY EXAMPLE CODE BELOW HERE** comment. 
 
-    ```
+    ```csharp
     //Create a unique name for the container
     string containerName = "wtblob" + Guid.NewGuid().ToString();
     
