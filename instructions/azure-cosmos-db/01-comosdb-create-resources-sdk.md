@@ -64,7 +64,7 @@ In this section of exercise you create a resource group and Azure Cosmos DB acco
 
 ## Create the console application
 
-Now that the needed resources are deployed to Azure the next step is to set up the console application using the same terminal window in Visual Studio Code.
+Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
 1. Create a folder for the project and change in to the folder.
 
@@ -96,7 +96,7 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     code Program.cs
     ```
 
-1. Replace any existing code with the following  following code snippet after the **using** statements. Be sure to replace the placeholder values for **\<documentEndpoint>** and **\<primaryKey>** following the directions in the code comments.
+1. Replace any existing code with the following code snippet. Be sure to replace the placeholder values for **\<documentEndpoint>** and **\<primaryKey>** following the directions in the code comments.
 
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
