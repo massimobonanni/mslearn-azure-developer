@@ -241,7 +241,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 ## Run the code
 
-Now that the app is complete it's time to build and run it. Run the following commands in the Visucal Studio Code terminal. 
+Now that the app is complete it's time to build and run it. Run the following commands in the Visual Studio Code terminal. 
 
 ```bash
 dotnet build
