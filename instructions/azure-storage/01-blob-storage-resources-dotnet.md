@@ -57,7 +57,7 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
     >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
 
-    ```bash
+    ```
     myStorageAcct=storageExercise$RANDOM
     ```
 
@@ -67,7 +67,7 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
 1.  Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
 
-    ```bash
+    ```
     az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
     ```
 
@@ -83,19 +83,19 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Run the following command in the terminal to create the .NET console app.
 
-    ```dotnetcli
+    ```
     dotnet new console --framework net8.0
     ```
 
 1. Run the following commands to add the **Azure.Storage.Blobs** package to the project.
 
-    ```dotnetcli
+    ```
     dotnet add package Azure.Storage.Blobs
     ```
 
 1. Run the following command to create a **data** folder in your project. 
 
-    ```bash
+    ```
     mkdir data
     ```
 
@@ -107,7 +107,7 @@ Now it's time to replace the template code in the **Program.cs** file.
 
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
-    ```csharp
+    ```
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
     
@@ -140,7 +140,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after the **// COPY EXAMPLE CODE BELOW HERE** comment. 
 
-    ```csharp
+    ```
     //Create a unique name for the container
     string containerName = "wtblob" + Guid.NewGuid().ToString();
     
@@ -157,7 +157,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after previous code example. The code gets a reference to a **BlobClient** object by calling the **GetBlobClient** method on the container created in the previous section. It then uploads a generated local file using the **UploadAsync** method. This method creates the blob if it doesn't already exist, and overwrites it if it does.
 
-    ```csharp
+    ```
     // Create a local file in the ./data/ directory for uploading and downloading
     string localPath = "./data/";
     string fileName = "wtfile" + Guid.NewGuid().ToString() + ".txt";
@@ -188,7 +188,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after previous code example. You list the blobs in the container by using the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
 
-    ```csharp
+    ```
     // List blobs in the container
     Console.WriteLine("Listing blobs...");
     await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
@@ -207,7 +207,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after the previous code example. The code uses the **DownloadAsync** method to download the blob created previously to your local file system. The example code adds a suffix of "DOWNLOADED" to the blob name so that you can see both files in local file system.
 
-    ```csharp
+    ```
     // Download the blob to a local file
     // Append the string "DOWNLOADED" before the .txt extension 
     string downloadFilePath = localFilePath.Replace(".txt", "DOWNLOADED.txt");
@@ -231,7 +231,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after the previous code example. The code cleans up the resources the app created by deleting the entire container using **DeleteAsync**. It also deletes the local files created by the app.
 
-    ```csharp
+    ```
     // Delete the container and clean up local files created
     Console.WriteLine("\n\nDeleting blob container...");
     await containerClient.DeleteAsync();
@@ -247,7 +247,7 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 Now that the app is complete it's time to build and run it. Run the following commands in the Visual Studio Code terminal. 
 
-```bash
+```
 dotnet build
 dotnet run
 ```
