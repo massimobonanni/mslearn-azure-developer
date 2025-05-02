@@ -57,6 +57,10 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
     >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
 
+    ```bash
+    myStorageAcct=storageExercise$RANDOM
+    ```
+
     ```
     az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
     ```
