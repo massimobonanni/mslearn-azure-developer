@@ -130,7 +130,7 @@ Now it's time to replace the template code in the **Program.cs** file.
    Console.WriteLine("Press enter to exit the sample application.");
    Console.ReadLine();
    
-   static async Task ProcessAsync()
+   async Task ProcessAsync()
    {
        // Create a client that can authenticate with a connection string
        BlobServiceClient blobServiceClient = new BlobServiceClient(storageConnectionString);
