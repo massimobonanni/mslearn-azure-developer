@@ -65,11 +65,13 @@ In this section of exercise you create a resource group and Azure Storage accoun
    az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
    ```
 
-1.  Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
+1. Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
 
-   ```azurecli
+   ```bash
    az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
    ```
+
+Next you create the console application.
 
 ## Create the console application
 
@@ -91,6 +93,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
    ```bash
    dotnet add package Azure.Storage.Blobs
+   dotnet add package dotenv.net
    ```
 
 1. Run the following command to create a **data** folder in your project. 
@@ -103,6 +106,8 @@ Now it's time to replace the template code in the **Program.cs** file.
 
 ### Add the starting code for the project
 
+1. Open the *.env* file and replace **YOUR_CONNECTION_STRING** with the value you saved earlier. Save your changes.
+
 1. Open the *Program.cs* file and replace any existing code with the following code.  Be sure to replace the placeholder value for **storageConnectionString** following the directions in the code comments.
 
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
@@ -110,7 +115,13 @@ Now it's time to replace the template code in the **Program.cs** file.
    ```csharp
    using Azure.Storage.Blobs;
    using Azure.Storage.Blobs.Models;
+   using dotenv.net
    
+   // Load environment variables from .env file and assign connection string
+   DotEnv.Load();
+   var envVars = DotEnv.Read();
+   string storageConnectionString = envVars["AZURE_STORAGE_CONNECTION_STRING"];
+
    Console.WriteLine("Azure Blob Storage exercise\n");
    
    // Run the examples asynchronously, wait for the results before proceeding
@@ -121,9 +132,6 @@ Now it's time to replace the template code in the **Program.cs** file.
    
    static async Task ProcessAsync()
    {
-       // Replace CONNECTION_STRING with the connection string you saved earlier
-       string storageConnectionString = "CONNECTION_STRING";
-       
        // Create a client that can authenticate with a connection string
        BlobServiceClient blobServiceClient = new BlobServiceClient(storageConnectionString);
    
