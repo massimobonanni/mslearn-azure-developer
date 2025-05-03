@@ -48,28 +48,28 @@ In this section of exercise you create a resource group and Azure Storage accoun
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
 1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
-    
-    ```azurecli
-    az group create --location useast --name <myResourceGroup>
-    ```
+
+   ```azurecli
+   az group create --location useast --name <myResourceGroup>
+   ```
 
 1. Run the following commands to create the Azure Storage account. The first command creates a variable with a unique name for your storage account. Run the second command and replace **\<myResourceGroup>** with the group you chose earlier. Replace **\<myLocation>** with the location you used earlier.
 
     >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
 
-    ```bash
-    myStorageAcct=storageExercise$RANDOM
-    ```
+   ```bash
+   myStorageAcct=storageExercise$RANDOM
+   ```
 
-    ```bash
-    az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
-    ```
+   ```bash
+   az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
+   ```
 
 1.  Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
 
-    ```azurecli
-    az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
-    ```
+   ```azurecli
+   az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
+   ```
 
 ## Create the console application
 
@@ -83,28 +83,28 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Run the following command in the terminal to create the .NET console app.
 
-    ```bash
-    dotnet new console --framework net8.0
-    ```
+   ```bash
+   dotnet new console --framework net8.0
+   ```
 
 1. Run the following commands to add the **Azure.Storage.Blobs** package to the project.
 
-    ```bash
-    dotnet add package Azure.Storage.Blobs
-    ```
+   ```bash
+   dotnet add package Azure.Storage.Blobs
+   ```
 
 1. Run the following command to create a **data** folder in your project. 
 
-    ```bash
-    mkdir data
-    ```
+   ```bash
+   mkdir data
+   ```
 
 Now it's time to replace the template code in the **Program.cs** file.
 
 ### Add the starting code for the project
 
 1. Open the *Program.cs* file and replace any existing code with the following code.  Be sure to replace the placeholder value for **storageConnectionString** following the directions in the code comments.
-    
+
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
    ```csharp
@@ -140,108 +140,108 @@ Creating a container includes creating an instance of the **BlobServiceClient** 
 
 1. Add the following code after the **// COPY EXAMPLE CODE BELOW HERE** comment. 
 
-    ```csharp
-    //Create a unique name for the container
-    string containerName = "wtblob" + Guid.NewGuid().ToString();
-    
-    // Create the container and return a container client object
-    BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
-    Console.WriteLine("A container named '" + containerName + "' has been created. " +
-        "\nTake a minute and verify in the portal." + 
-        "\nNext a file will be created and uploaded to the container.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
+   ```csharp
+   //Create a unique name for the container
+   string containerName = "wtblob" + Guid.NewGuid().ToString();
+   
+   // Create the container and return a container client object
+   BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
+   Console.WriteLine("A container named '" + containerName + "' has been created. " +
+       "\nTake a minute and verify in the portal." + 
+       "\nNext a file will be created and uploaded to the container.");
+   Console.WriteLine("Press 'Enter' to continue.");
+   Console.ReadLine();
+   ```
 
     Next, you add code to upload a generated file to the container.
 
 1. Add the following code after previous code example. The code gets a reference to a **BlobClient** object by calling the **GetBlobClient** method on the container created in the previous section. It then uploads a generated local file using the **UploadAsync** method. This method creates the blob if it doesn't already exist, and overwrites it if it does.
 
-    ```
-    // Create a local file in the ./data/ directory for uploading and downloading
-    string localPath = "./data/";
-    string fileName = "wtfile" + Guid.NewGuid().ToString() + ".txt";
-    string localFilePath = Path.Combine(localPath, fileName);
-    
-    // Write text to the file
-    await File.WriteAllTextAsync(localFilePath, "Hello, World!");
-    
-    // Get a reference to the blob
-    BlobClient blobClient = containerClient.GetBlobClient(fileName);
-    
-    Console.WriteLine("Uploading to Blob storage as blob:\n\t {0}\n", blobClient.Uri);
-    
-    // Open the file and upload its data
-    using (FileStream uploadFileStream = File.OpenRead(localFilePath))
-        {
-    await blobClient.UploadAsync(uploadFileStream);
-    uploadFileStream.Close();
-        }
-    
-    Console.WriteLine("\nThe file was uploaded. We'll verify by listing" + 
-            " the blobs next.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
+   ```csharp
+   // Create a local file in the ./data/ directory for uploading and downloading
+   string localPath = "./data/";
+   string fileName = "wtfile" + Guid.NewGuid().ToString() + ".txt";
+   string localFilePath = Path.Combine(localPath, fileName);
+   
+   // Write text to the file
+   await File.WriteAllTextAsync(localFilePath, "Hello, World!");
+   
+   // Get a reference to the blob
+   BlobClient blobClient = containerClient.GetBlobClient(fileName);
+   
+   Console.WriteLine("Uploading to Blob storage as blob:\n\t {0}\n", blobClient.Uri);
+   
+   // Open the file and upload its data
+   using (FileStream uploadFileStream = File.OpenRead(localFilePath))
+       {
+   await blobClient.UploadAsync(uploadFileStream);
+   uploadFileStream.Close();
+       }
+   
+   Console.WriteLine("\nThe file was uploaded. We'll verify by listing" + 
+           " the blobs next.");
+   Console.WriteLine("Press 'Enter' to continue.");
+   Console.ReadLine();
+   ```
 
     Next, you add code to list the blobs in the container.
 
 1. Add the following code after previous code example. You list the blobs in the container by using the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
 
-    ```
-    // List blobs in the container
-    Console.WriteLine("Listing blobs...");
-    await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
-    {
-        Console.WriteLine("\t" + blobItem.Name);
-    }
-    
-    Console.WriteLine("\nYou can also verify by looking inside the " + 
-            "container in the portal." +
-            "\nNext the blob will be downloaded with an altered file name.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
+   ```csharp
+   // List blobs in the container
+   Console.WriteLine("Listing blobs...");
+   await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
+   {
+       Console.WriteLine("\t" + blobItem.Name);
+   }
+   
+   Console.WriteLine("\nYou can also verify by looking inside the " + 
+           "container in the portal." +
+           "\nNext the blob will be downloaded with an altered file name.");
+   Console.WriteLine("Press 'Enter' to continue.");
+   Console.ReadLine();
+   ```
 
     Next, you add code to download a blob.
 
 1. Add the following code after the previous code example. The code uses the **DownloadAsync** method to download the blob created previously to your local file system. The example code adds a suffix of "DOWNLOADED" to the blob name so that you can see both files in local file system.
 
-    ```
-    // Download the blob to a local file
-    // Append the string "DOWNLOADED" before the .txt extension 
-    string downloadFilePath = localFilePath.Replace(".txt", "DOWNLOADED.txt");
-    
-    Console.WriteLine("\nDownloading blob to\n\t{0}\n", downloadFilePath);
-    
-    // Download the blob's contents and save it to a file
-    BlobDownloadInfo download = await blobClient.DownloadAsync();
-    
-    using (FileStream downloadFileStream = File.OpenWrite(downloadFilePath))
-    {
-        await download.Content.CopyToAsync(downloadFileStream);
-    }
-    Console.WriteLine("\nLocate the local file in the data directory created earlier to verify it was downloaded.");
-    Console.WriteLine("The next step is to delete the container and local files.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
+   ```csharp
+   // Download the blob to a local file
+   // Append the string "DOWNLOADED" before the .txt extension 
+   string downloadFilePath = localFilePath.Replace(".txt", "DOWNLOADED.txt");
+   
+   Console.WriteLine("\nDownloading blob to\n\t{0}\n", downloadFilePath);
+   
+   // Download the blob's contents and save it to a file
+   BlobDownloadInfo download = await blobClient.DownloadAsync();
+   
+   using (FileStream downloadFileStream = File.OpenWrite(downloadFilePath))
+   {
+       await download.Content.CopyToAsync(downloadFileStream);
+   }
+   Console.WriteLine("\nLocate the local file in the data directory created earlier to verify it was downloaded.");
+   Console.WriteLine("The next step is to delete the container and local files.");
+   Console.WriteLine("Press 'Enter' to continue.");
+   Console.ReadLine();
+   ```
 
     Next, you add code to delete a container.
 
 1. Add the following code after the previous code example. The code cleans up the resources the app created by deleting the entire container using **DeleteAsync**. It also deletes the local files created by the app.
 
-    ```
-    // Delete the container and clean up local files created
-    Console.WriteLine("\n\nDeleting blob container...");
-    await containerClient.DeleteAsync();
-    
-    Console.WriteLine("Deleting the local source and downloaded files...");
-    File.Delete(localFilePath);
-    File.Delete(downloadFilePath);
-    
-    Console.WriteLine("Finished cleaning up.");
-    ```
+   ```csharp
+   // Delete the container and clean up local files created
+   Console.WriteLine("\n\nDeleting blob container...");
+   await containerClient.DeleteAsync();
+   
+   Console.WriteLine("Deleting the local source and downloaded files...");
+   File.Delete(localFilePath);
+   File.Delete(downloadFilePath);
+   
+   Console.WriteLine("Finished cleaning up.");
+   ```
 
 ## Run the code
 
