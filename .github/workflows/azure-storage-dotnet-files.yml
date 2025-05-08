@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
     paths:
-      - allfiles/labs/dotnet/azure-storage/**
+      - 'allfiles/labs/dotnet/azure-storage/**'
 
 defaults:
   run:
