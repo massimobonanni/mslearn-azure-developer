@@ -47,10 +47,10 @@ In this section of exercise you create a resource group and Azure Storage accoun
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
+1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast2** with a region near you if needed. 
 
    ```azurecli
-   az group create --location useast --name <myResourceGroup>
+   az group create --location useast2 --name <myResourceGroup>
    ```
 
 1. Run the following commands to create the Azure Storage account. The first command creates a variable with a unique name for your storage account. Run the second command and replace **\<myResourceGroup>** with the group you chose earlier. Replace **\<myLocation>** with the location you used earlier.
@@ -58,17 +58,17 @@ In this section of exercise you create a resource group and Azure Storage accoun
     >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
 
    ```bash
-   myStorageAcct=storageExercise$RANDOM
+   myStorageAcct=storageexercise$RANDOM
    ```
 
    ```bash
    az storage account create -g <myResourceGroup> -n $myStorageAcct -l <myLocation> --sku Standard_LRS
    ```
 
-1. Run the following command to retrieve the connection string for the Azure Storage account. Record the connection string from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
+1. Run the following command to retrieve the blob endpoint for the Azure Storage account. Record the endpoint from the command results, it's needed later in the exercise. Replace **\<myResourceGroup>** with the group you chose earlier.
 
    ```bash
-   az storage account show-connection-string -n $myStorageAcct -g <myResourceGroup>
+   az storage account show -n $myStorageAcct -g <myResourceGroup> --query primaryEndpoints | jq '.blob'
    ```
 
 Next you create the console application.
@@ -77,7 +77,7 @@ Next you create the console application.
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in your local environment.
 
-1. Create a folder named **blobstorage** for the project.
+1. Create a folder named **blobstorage** for the project in your local file system.
 
 1. Start **Visual Studio Code** and select the **File > Open Folder...** option in the menu bar to open the folder you created.
 
@@ -91,10 +91,11 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Run the following commands to add the **Azure.Storage.Blobs** package to the project.
 
-   ```bash
-   dotnet add package Azure.Storage.Blobs
-   dotnet add package dotenv.net
-   ```
+    ```bash
+    dotnet add package Azure.Storage.Blobs
+    dotnet add package dotenv.net
+    dotnet add package Azure.Identity
+    ```
 
 1. Run the following command to create a **data** folder in your project. 
 
