@@ -21,7 +21,7 @@ Tasks performed in this exercise:
 * Create the console app
 * Run the console app and verify results
 
-This exercise should take approximately **30** minutes to complete.
+This exercise takes approximately **30** minutes to complete.
 
 ## Before you start
 
