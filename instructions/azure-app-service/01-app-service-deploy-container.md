@@ -15,7 +15,7 @@ Tasks performed in this exercise:
 * View the results
 * Clean up resources
 
-This exercise should take approximately **15** minutes to complete.
+This exercise takes approximately **15** minutes to complete.
 
 ## Before you start
 

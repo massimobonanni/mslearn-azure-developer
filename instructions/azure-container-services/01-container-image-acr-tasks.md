@@ -16,7 +16,7 @@ Tasks performed in this exercise:
 * Verify the results
 * Run the image in the Azure Container Registry
 
-This exercise should take approximately **20** minutes to complete.
+This exercise takes approximately **20** minutes to complete.
 
 ## Before you start
 

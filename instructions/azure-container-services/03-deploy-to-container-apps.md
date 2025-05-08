@@ -15,7 +15,7 @@ Tasks performed in this exercise:
 * Create a container
 * Verify the container is running
 
-This exercise should take approximately **15** minutes to complete.
+This exercise takes approximately **15** minutes to complete.
 
 ## Before you start
 
