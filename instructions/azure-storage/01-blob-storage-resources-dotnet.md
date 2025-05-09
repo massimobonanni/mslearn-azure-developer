@@ -29,14 +29,11 @@ Before you begin, make sure you have the following requirements in place:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 
-* Visual Studio Code on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms). 
-    * Download Visual Studio Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+* [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms). 
 
-* .NET 8 is the target framework.
-    * Download .NET 8: [https://dotnet.microsoft.com/en-us/download/dotnet/8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+* [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) is the target framework.
 
 * [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) for Visual Studio Code.
-    * Install the C# Dev Kit: [https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 
 ## Create an Azure Storage account
 
