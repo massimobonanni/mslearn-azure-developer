@@ -17,6 +17,7 @@ Console.ReadLine();
 async Task ProcessAsync()
 {
 
+    Console.Clear();
     Console.WriteLine("Azure Blob Storage exercise\n");
 
     // CREATE A BLOB STORAGE CLIENT
