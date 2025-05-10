@@ -31,7 +31,6 @@ Before you begin, make sure you have the following requirements in place:
 * [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms). 
 * [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
 * [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) is the target framework.
-* [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) installed locally.
 
 ## Create an Azure Storage account
 
