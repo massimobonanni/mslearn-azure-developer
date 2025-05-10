@@ -25,7 +25,7 @@ This exercise takes approximately **30** minutes to complete.
 
 ## Before you start
 
-Before you begin, make sure you have the following requirements in place:
+To complete the exercise you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 * [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms). 
