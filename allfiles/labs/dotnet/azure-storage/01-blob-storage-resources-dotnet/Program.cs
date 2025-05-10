@@ -1,6 +1,6 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Storage;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Azure.Identity;
 using dotenv.net;
 
 
@@ -17,11 +17,11 @@ Console.ReadLine();
 async Task ProcessAsync()
 {
 
-    Console.Clear();
     Console.WriteLine("Azure Blob Storage exercise\n");
 
     // CREATE A BLOB STORAGE CLIENT
     
+
 
     // CREATE A CONTAINER
 
@@ -30,17 +30,21 @@ async Task ProcessAsync()
     // CREATE A LOCAL FILE FOR UPLOAD TO BLOB STORAGE
     
 
+
     // UPLOAD THE FILE TO BLOB STORAGE
     
 
 
-    // LIST THE CONTAINER'S BLOBS
+    // LIST BLOBS IN THE CONTAINER
+
 
 
     // DOWNLOAD THE BLOB TO A LOCAL FILE
     
 
+
     // DELETE THE BLOB AND CONTAINER
+    
 
 
 }

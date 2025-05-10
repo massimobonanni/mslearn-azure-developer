@@ -49,22 +49,21 @@ In this section of exercise you create a resource group and Azure Storage accoun
     az group create --location eastus2 --name myResourceGroup
     ```
 
-1. Run the following commands to create the Azure Storage account. The first command creates a variable with a unique name for your storage account. Run the second command and replace **myResourceGroup** with the group you chose earlier. Replace **myLocation** with the location you used earlier.
-
-    >**Note:** Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only. Your storage account name must be unique within Azure. No two storage accounts can have the same name. *This command takes a few minutes to complete.*
+1. Run the following commands to create the Azure Storage account, each account name must be unique. The first command creates a variable with a unique name for your storage account. Record the name of your account from the output of the **echo** command. Run the second command and replace **myResourceGroup** with the group you chose earlier. Replace **myLocation** with the location you used earlier.
 
     ```bash
     myStorageAcct=storageexercise$RANDOM
+    echo $myStorageAcct
     ```
 
     ```bash
     az storage account create -g myResourceGroup -n $myStorageAcct -l myLocation --sku Standard_LRS
     ```
 
-1. Run the following command to retrieve the blob endpoint for the Azure Storage account. Replace **myResourceGroup** with the group you chose earlier. Record the endpoint from the command results, it's needed later in the exercise. 
+1. Run the following command to retrieve the access key for the Azure Storage account. Replace **myResourceGroup** with the group you chose earlier. Record the access key from the command results, it's needed later in the exercise. 
 
     ```bash
-    az storage account show -n $myStorageAcct -g myResourceGroup  --query primaryEndpoints | jq '.blob'
+    az storage account keys list -n $myStorageAcct -g myResourceGroup  --query "[0].value" --output tsv
     ```
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The rest of the exercise is performed in your local environment.
@@ -92,7 +91,6 @@ In this section you download the starter files for the project. You add code to 
     ```bash
     dotnet add package Azure.Storage.Blobs
     dotnet add package dotenv.net
-    dotnet add package Azure.Identity
     ```
 
 1. Run the following command to create a **data** folder in your project. 
@@ -101,7 +99,7 @@ In this section you download the starter files for the project. You add code to 
     mkdir data
     ```
 
-1. Open the *.env* configuration file and replace **YOUR_BLOB_STORAGE_URL** with the endpoint value you saved earlier. Save your changes.
+1. Open the *.env* configuration file and replace **YOUR_STORAGE_ACCOUNT_NAME** and **YOUR_STORAGE_ACCOUNT_KEY** with the values you recorded earlier. Save your changes.
 
 Now it's time to complete the code for the project.
 
@@ -112,9 +110,15 @@ Open the *Program.cs* file and review the comments to get an understanding of th
 1. Find the **// CREATE A BLOB STORAGE CLIENT** comment, then add the following code directly beneath the comment. The **BlobServiceClient** acts as the primary entry point for managing containers and blobs in a storage account. The client uses the *DefaultAzureCredential* for authentication.
 
     ```csharp
-    // Create a client that authenticates with DefaultAzureCredential
-    BlobServiceClient blobServiceClient = 
-        new BlobServiceClient(new Uri(envVars["BLOB_STORAGE_URL"]), new DefaultAzureCredential());
+    // Create a credential using the storage account name and key
+    string accountName = envVars["STORAGE_ACCOUNT_NAME"];
+    string accountKey = envVars["STORAGE_ACCOUNT_KEY"];
+    
+    StorageSharedKeyCredential sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
+    
+    // Create the BlobServiceClient using the endpoint and shared key credential
+    string blobServiceEndpoint = $"https://{accountName}.blob.core.windows.net";
+    BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceEndpoint), sharedKeyCredential);
     ```
 
 1. Find the **// CREATE A CONTAINER** comment, then add the following code directly beneath the comment. Creating a container includes creating an instance of the **BlobServiceClient** class, and then calling the **CreateBlobContainerAsync** method to create the container in your storage account. A GUID value is appended to the container name to ensure that it's unique. The **CreateBlobContainerAsync** method fails if the container already exists.
@@ -186,10 +190,9 @@ Open the *Program.cs* file and review the comments to get an understanding of th
     }
     ```
 
-1. Find the **// LIST THE CONTAINER'S BLOBS** comment, then add the following code directly beneath the comment. You list the blobs in the container by using the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
+1. Find the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container by using the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
 
     ```csharp
-    // List blobs in the container
     Console.WriteLine("Listing blobs in container...");
     await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
     {
