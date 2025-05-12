@@ -76,7 +76,7 @@ An environment in Azure Container Apps creates a secure boundary around a group 
 
 After the container app environment finishes deploying, you can deploy a container image to your environment.
 
-1. Deploy a sample app container image by using the **containerapp create** command.
+1. Deploy a sample app container image with the **containerapp create** command.
 
     ```bash
     az containerapp create \

@@ -189,7 +189,7 @@ Open the *Program.cs* file and review the comments to get an understanding of th
     }
     ```
 
-1. Find the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container by using the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
+1. Find the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container with the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
 
     ```csharp
     Console.WriteLine("Listing blobs in container...");
