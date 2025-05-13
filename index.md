@@ -24,9 +24,11 @@ The following exercises are designed to provide you with a hands-on learning exp
 
 ## <a id="{{ group.name | slugify }}"></a>{{ group.name }} 
 {% for activity in group.items %}
-| [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) <br/> {{ activity.lab.description }} |
+* [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) <br/> {{ activity.lab.description }}
+
+
 
 {% endfor %}
-| <a href="#overview">Return to top</a> |
+<a href="#overview">Return to top</a>
 {% endfor %}
 
