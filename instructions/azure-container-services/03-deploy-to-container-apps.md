@@ -31,10 +31,10 @@ To complete the exercise you need:
 
     > **Note**: If you have previously created a cloud shell that uses a *PowerShell* environment, switch it to ***Bash***.
 
-1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
+1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
     ```azurecli
-    az group create --location useast --name <myResourceGroup>
+    az group create --location useast --name myResourceGroup
     ```
 
 1. Run the following command to ensure you have the latest version of the Azure Container Apps extension for the CLI is installed.
@@ -63,25 +63,25 @@ There are two namespaces that need to be registered for Azure Container Apps, an
 
 An environment in Azure Container Apps creates a secure boundary around a group of container apps. Container Apps deployed to the same environment are deployed in the same virtual network and write logs to the same Log Analytics workspace.
 
-1. Create an environment with the **az containerapp env create** command. Replace **\<myResourceGroup>** and **\<myLocation>** with the values you used earlier. It takes a few minutes for the operation to complete.
+1. Create an environment with the **az containerapp env create** command. Replace **myResourceGroup** and **myLocation** with the values you used earlier. It takes a few minutes for the operation to complete.
 
     ```bash
     az containerapp env create \
         --name my-container-env \
-        --resource-group <myResourceGroup> \
-        --location <myLocation>
+        --resource-group myResourceGroup \
+        --location myLocation
     ```
 
 ## Deploy a container app to the environment
 
 After the container app environment finishes deploying, you can deploy a container image to your environment.
 
-1. Deploy a sample app container image with the **containerapp create** command.
+1. Deploy a sample app container image with the **containerapp create** command. Replace **myResourceGroup** with the value you used earlier.
 
     ```bash
     az containerapp create \
         --name my-container-app \
-        --resource-group <myResourceGroup> \
+        --resource-group myResourceGroup \
         --environment my-container-env \
         --image mcr.microsoft.com/azuredocs/containerapps-helloworld:latest \
         --target-port 80 \

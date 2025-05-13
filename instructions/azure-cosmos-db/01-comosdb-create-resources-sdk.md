@@ -35,31 +35,32 @@ In this section of exercise you create a resource group and Azure Cosmos DB acco
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
+1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
     ```
-    az group create --location useast --name <myResourceGroup>
+    az group create --location useast --name myResourceGroup
     ```
 
-1. Run the following command to create the Azure Cosmos DB account. Replace **\<myCosmosDBacct>** with a *unique* name to identify your Azure Cosmos DB account. Replace **\<myResourceGroup>** with the name you chose earlier.
-
-    >**Note:** The account name can only contain lowercase letters, numbers, and the hyphen (-) character. It must be between 3-31 characters in length. *This command takes a few minutes to complete.*
-
-    ```
-    az cosmosdb create -n <myCosmosDBacct> -g <myResourceGroup>
-    ```
-
-1.  Run the following command to retrieve the **documentEndpoint** for the Azure Cosmos DB account. Record the endpoint from the command results, it's needed later in the exercise. Replace **\<myCosmosDBacct>** and **\<myResourceGroup>** with the names you created.
+1. Run the following commands to create the Azure Cosmos DB account, each account name must be unique. The first command creates a variable with a unique name for your CosmosDB account. Run the second command and replace **myResourceGroup** with the name you chose earlier.
 
     ```bash
-    az cosmosdb show -n <myCosmosDBacct> -g <myResourceGroup> --query "documentEndpoint" --output tsv
+    myCosmosDbAcct=cosmosexercise$RANDOM
     ```
 
-1. Retrieve the primary key for the account by  using the following command. Record the **primaryMasterKey** from the command results for use in the code. Replace **\<myCosmosDBacct>** and **\<myResourceGroup>** with the names you created.
+    ```bash
+    az cosmosdb create -n $myCosmosDbAcct -g myResourceGroup
+    ```
+
+1.  Run the following command to retrieve the **documentEndpoint** for the Azure Cosmos DB account. Record the endpoint from the command results, it's needed later in the exercise. Replace **myResourceGroup** with the names you chose earlier.
+
+    ```bash
+    az cosmosdb show -n $myCosmosDbAcct -g myResourceGroup --query "documentEndpoint" --output tsv
+    ```
+
+1. Retrieve the primary key for the account by  using the following command. Record the **primaryMasterKey** from the command results for use in the code. Replace **myResourceGroup** with the names you chose earlier.
 
      ```
-    # Retrieve the primary key
-    az cosmosdb keys list -n <myCosmosDBacct> -g <myResourceGroup>
+    az cosmosdb keys list -n $myCosmosDbAcct -g myResourceGroup
     ```
 
 ## Create the console application
@@ -96,7 +97,7 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     code Program.cs
     ```
 
-1. Replace any existing code with the following code snippet. Be sure to replace the placeholder values for **\<documentEndpoint>** and **\<primaryKey>** following the directions in the code comments.
+1. Replace any existing code with the following code snippet. Be sure to replace the placeholder values for **documentEndpoint** and **primaryKey** following the directions in the code comments.
 
     The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
@@ -116,10 +117,10 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     public class Program
     {
         // Cosmos DB account URL - replace with your actual Cosmos DB account URL
-        static string cosmosDbAccountUrl = "<documentEndpoint>";
+        static string cosmosDbAccountUrl = "documentEndpoint";
     
         // Cosmos DB account key - replace with your actual Cosmos DB account key
-        static string accountKey = "<primaryKey>";
+        static string accountKey = "primaryKey";
     
         // Name of the database to create or use
         static string databaseName = "myDatabase";

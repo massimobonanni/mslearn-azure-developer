@@ -31,10 +31,10 @@ To complete the exercise you need:
 
     > **Note**: If you have previously created a cloud shell that uses a *PowerShell* environment, switch it to ***Bash***.
 
-1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
+1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
     ```
-    az group create --location useast --name <myResourceGroup>
+    az group create --location useast --name myResourceGroup
     ```
 
 ## Create a container
@@ -47,14 +47,14 @@ You create a container by providing a name, a Docker image, and an Azure resourc
     DNS_NAME_LABEL=aci-example-$RANDOM
     ```
 
-1. Run the following command to create a container instance. Replace **\<myResourceGroup>** and **\<myLocation>** with the values you used earlier. It takes a few minutes for the operation to complete.
+1. Run the following command to create a container instance. Replace **myResourceGroup** and **myLocation** with the values you used earlier. It takes a few minutes for the operation to complete.
 
     ```bash
-    az container create --resource-group <myResourceGroup> 
+    az container create --resource-group myResourceGroup 
         --name mycontainer 
         --image mcr.microsoft.com/azuredocs/aci-helloworld 
         --ports 80 
-        --dns-name-label $DNS_NAME_LABEL --location <myLocation> 
+        --dns-name-label $DNS_NAME_LABEL --location myLocation
     ```
 
     In the previous command, **$DNS_NAME_LABEL** specifies your DNS name. The image name, **mcr.microsoft.com/azuredocs/aci-helloworld**, refers to a Docker image that runs a basic Node.js web application.
@@ -65,10 +65,10 @@ Move to the next section after the **az container create** command is finished.
 
 You can check the containers build status with the **az container show** command. 
 
-1. Run the following command to check the provisioning status of the container you created. Replace **\<myResourceGroup>** with the value you used earlier.
+1. Run the following command to check the provisioning status of the container you created. Replace **myResourceGroup** with the value you used earlier.
 
     ```bash
-    az container show --resource-group <myResourceGroup> 
+    az container show --resource-group myResourceGroup 
         --name mycontainer 
         --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" 
         --out table 

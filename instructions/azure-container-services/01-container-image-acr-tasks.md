@@ -32,17 +32,17 @@ To complete the exercise you need:
 
     > **Note**: If you have previously created a cloud shell that uses a *PowerShell* environment, switch it to ***Bash***.
 
-1. Create a resource group for the resources needed for this exercise. Replace **\<myResourceGroup>** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. 
+1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
     ```
-    az group create --location useast --name <myResourceGroup>
+    az group create --location useast --name myResourceGroup
     ```
 
-1. Run the following command to create a basic container registry. The registry name must be unique within Azure, and contain 5-50 alphanumeric characters. Replace **\<myResourceGroup>** with the name you used earlier, and **\<myContainerRegistry>** with a unique value.
+1. Run the following command to create a basic container registry. The registry name must be unique within Azure, and contain 5-50 alphanumeric characters. Replace **myResourceGroup** with the name you used earlier, and **myContainerRegistry** with a unique value.
 
     ```bash
-    az acr create --resource-group <myResourceGroup> \
-        --name <myContainerRegistry> --sku Basic
+    az acr create --resource-group myResourceGroup \
+        --name myContainerRegistry --sku Basic
     ```
 
     > **Note:** The command creates a *Basic* registry, a cost-optimized option for developers learning about Azure Container Registry.
@@ -57,11 +57,11 @@ Next, you build and push an image based on a Dockerfile.
     echo FROM mcr.microsoft.com/hello-world > Dockerfile
     ```
 
-1. Run the following **az acr build** command, which builds the image and, after the image is successfully built, pushes it to your registry. Replace **\<myContainerRegistry>** with the name you created earlier.
+1. Run the following **az acr build** command, which builds the image and, after the image is successfully built, pushes it to your registry. Replace **myContainerRegistry** with the name you created earlier.
 
     ```bash
     az acr build --image sample/hello-world:v1  \
-        --registry <myContainerRegistry> \
+        --registry myContainerRegistry \
         --file Dockerfile .
     ```
 
@@ -69,7 +69,7 @@ Next, you build and push an image based on a Dockerfile.
 
     ```
     - image:
-        registry: <myContainerRegistry>.azurecr.io
+        registry: myContainerRegistry.azurecr.io
         repository: sample/hello-world
         tag: v1
         digest: sha256:92c7f9c92844bbbb5d0a101b22f7c2a7949e40f8ea90c8b3bc396879d95e899a
@@ -86,10 +86,10 @@ Next, you build and push an image based on a Dockerfile.
 
 ## Verify the results
 
-1. Run the following command to list the repositories in your registry. Replace **\<myContainerRegistry>** with the name you created earlier.
+1. Run the following command to list the repositories in your registry. Replace **myContainerRegistry** with the name you created earlier.
 
     ```bash
-    az acr repository list --name <myContainerRegistry> --output table
+    az acr repository list --name myContainerRegistry --output table
     ```
 
     Output:
@@ -100,10 +100,10 @@ Next, you build and push an image based on a Dockerfile.
     sample/hello-world
     ```
 
-1. Run the following command to list the tags on the **sample/hello-world** repository. Replace **\<myContainerRegistry>** with the name you used earlier.
+1. Run the following command to list the tags on the **sample/hello-world** repository. Replace **myContainerRegistry** with the name you used earlier.
 
     ```bash
-    az acr repository show-tags --name <myContainerRegistry> \
+    az acr repository show-tags --name myContainerRegistry \
         --repository sample/hello-world --output table
     ```
 
@@ -117,10 +117,10 @@ Next, you build and push an image based on a Dockerfile.
 
 ## Run the image in the ACR
 
-1. Run the *sample/hello-world:v1* container image from your container registry with the **az acr run** command. The following example uses **$Registry** to specify the registry where you run the command. Replace **\<myContainerRegistry>** with the name you used earlier.
+1. Run the *sample/hello-world:v1* container image from your container registry with the **az acr run** command. The following example uses **$Registry** to specify the registry where you run the command. Replace **myContainerRegistry** with the name you used earlier.
 
     ```bash
-    az acr run --registry <myContainerRegistry> \
+    az acr run --registry myContainerRegistry \
         --cmd '$Registry/sample/hello-world:v1' /dev/null
     ```
 
