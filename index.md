@@ -23,6 +23,7 @@ The following exercises are designed to provide you with a hands-on learning exp
 {% for group in grouped_exercises %}
 
 ## <a id="{{ group.name | slugify }}"></a>{{ group.name }} 
+---
 {% for activity in group.items %}
 * [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }}) <br/> {{ activity.lab.description }}
 
