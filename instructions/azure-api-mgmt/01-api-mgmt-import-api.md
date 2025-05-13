@@ -2,12 +2,12 @@
 lab:
     topic: Azure API Management
     title: 'Import and configure an API'
-    description: 'TBD'
+    description: 'Learn how to import, publish, and test an API that conforms to the OpenAPI specification.'
 ---
 
 # Import and configure an API
 
-In this exercise, you import and configure the backend settings.
+In this exercise, you import and configure the backend settings of an API.
 
 Tasks performed in this exercise:
 
@@ -24,7 +24,7 @@ To complete the exercise you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 
-## Create an Azure Storage account
+## Create an API Management instance
 
 In this section of exercise you create a resource group and Azure Storage account. You also record the endpoint, and access key for the account.
 
@@ -40,219 +40,75 @@ In this section of exercise you create a resource group and Azure Storage accoun
     az group create --location eastus2 --name myResourceGroup
     ```
 
-1. Run the following commands to create the Azure Storage account, each account name must be unique. The first command creates a variable with a unique name for your storage account. Record the name of your account from the output of the **echo** command. Run the second command and replace **myResourceGroup** with the group you chose earlier. Replace **myLocation** with the location you used earlier.
+1. Create a few variables for the CLI commands to use, it reduces amount of typing. Replace **myLocation** with the value you chose earlier. The APIM name needs to be a globally unique name, and the following script generates a random string. Replace **myEmail** with an email address you can access.
 
     ```bash
-    myStorageAcct=storageexercise$RANDOM
-    echo $myStorageAcct
+    myApiName=import-apim-$RANDOM
+    myLocation=myLocation
+    myEmail=myEmail
     ```
+
+1. Create an APIM instance. The **az apim create** command is used to create the instance. The **--sku-name Consumption** option is used to speed up the process for the walkthrough. Replace **myResourceGroup** with the value you chose earlier.
 
     ```bash
-    az storage account create -g myResourceGroup -n $myStorageAcct -l myLocation --sku Standard_LRS
+    az apim create -n $myApiName \
+        --location $myLocation \
+        --publisher-email $myEmail  \
+        --resource-group myResourceGroup \
+        --publisher-name Import-API-Exercise \
+        --sku-name Consumption 
     ```
+    > **Note:** The operation should complete in about five minutes. 
 
-1. Run the following command to retrieve the access key for the Azure Storage account. Replace **myResourceGroup** with the group you chose earlier. Record the access key from the command results, it's needed later in the exercise. 
+## Import a backend API
 
-    ```bash
-    az storage account keys list -n $myStorageAcct -g myResourceGroup  --query "[0].value" --output tsv
-    ```
+This section shows how to import and publish an OpenAPI specification backend API.
 
-Now that the needed resources are deployed to Azure the next step is to set up the console application. The rest of the exercise is performed in your local environment.
+1. In the Azure portal, search for and select **API Management services**.
 
-## Download files for the project
+1. On the **API Management services** screen, select the API Management instance you created.
 
-In this section you download the starter files for the project. You add code to the starter files to complete the application.
+1. In the **API management service** navigation pane, select  **> APIs** and then select **APIs**.
 
-1. Paste the link below into a web browser and save the file. 
+    ![Screenshot of the APIs section of the navigation pane.](./media/select-apis-navigation-pane.png)
 
-    `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-azure-developer/main/allfiles/downloads/dotnet/azure-storage-dotnet.zip`
 
-1. Launch **File Explorer** and navigate to the location the file was saved.
+1. Select **OpenAPI** in the **Create from definition** section, and set the **Basic/Full** toggle to **Full** in the pop-up that appears.
 
-1. Unzip the file into it's own folder.
+    ![Screenshot of the OpenAPI dialog box. Fields are detailed in the following table.](./media/create-api.png)
 
-## Configure the application
+    Use the values from the following table to fill out the form. You can leave any fields not mentioned to their default value.
 
-1. Start **Visual Studio Code** and select the **File > Open Folder...** option in the menu bar. Open the folder *01-blob-storage-resources-dotnet* located inside the unzipped file.
+    | Setting | Value | Description |
+    |--|--|--|
+    | **OpenAPI Specification** | `https://bigconference.azurewebsites.net/` | References the service implementing the API, requests are forwarded to this address. Most of the necessary information in the form is automatically populated after you enter this value. |
+    | **URL scheme** | Select **HTTPS**. | Defines the security level of the HTTP protocol accepted by the API. |
 
-1. In the menu bar select the **Terminal > New Terminal** to open a terminal is Visual Studio Code. 
+1. Select **Create**.
 
-1. Run the following commands in the terminal to add the required packages in the application.
+## Configure the API settings
 
-    ```bash
-    dotnet add package Azure.Storage.Blobs
-    dotnet add package dotenv.net
-    ```
+The *Big Conference API* is created. Now it's time to configure the API settings. 
 
-1. Run the following command to create a **data** folder in your project. 
+1. Select **Settings** in menu.
 
-    ```bash
-    mkdir data
-    ```
+1. Enter `https://bigconference.azurewebsites.net/` in the **Web service URL** field.
 
-1. Open the *.env* configuration file and replace **YOUR_STORAGE_ACCOUNT_NAME** and **YOUR_STORAGE_ACCOUNT_KEY** with the values you recorded earlier. Save your changes.
+1. Deselect the **Subscription required** checkbox.
 
-Now it's time to complete the code for the project.
+1. Select **Save**.
 
-## Add code to complete the project
+## Test the API
 
-Open the *Program.cs* file and review the comments to get an understanding of the overall flow of the application. Throughout the rest of the exercise you add code in specified areas to create the full application. 
+Now that the API has been imported and configured it's time to test the API.
 
-1. Find the **// CREATE A BLOB STORAGE CLIENT** comment, then add the following code directly beneath the comment. The **BlobServiceClient** acts as the primary entry point for managing containers and blobs in a storage account. The client uses the *DefaultAzureCredential* for authentication.
+1. Select **Test** in the menu bar. This will display all of the operations available in the API.
 
-    ```csharp
-    // Create a credential using the storage account name and key
-    string accountName = envVars["STORAGE_ACCOUNT_NAME"];
-    string accountKey = envVars["STORAGE_ACCOUNT_KEY"];
-    
-    StorageSharedKeyCredential sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
-    
-    // Create the BlobServiceClient using the endpoint and shared key credential
-    string blobServiceEndpoint = $"https://{accountName}.blob.core.windows.net";
-    BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceEndpoint), sharedKeyCredential);
-    ```
+1. Search for, and select the **Speakers_Get** operation. 
 
-1. Find the **// CREATE A CONTAINER** comment, then add the following code directly beneath the comment. Creating a container includes creating an instance of the **BlobServiceClient** class, and then calling the **CreateBlobContainerAsync** method to create the container in your storage account. A GUID value is appended to the container name to ensure that it's unique. The **CreateBlobContainerAsync** method fails if the container already exists.
+1. Select **Send**. You may need to scroll down on the page to view the HTTP response.
 
-    ```csharp
-    //Create a unique name for the container
-    string containerName = "wtblob" + Guid.NewGuid().ToString();
-    
-    // Create the container and return a container client object
-    Console.WriteLine("Creating container: " + containerName);
-    BlobContainerClient containerClient = 
-        await blobServiceClient.CreateBlobContainerAsync(containerName);
-    
-    // Check if the container was created successfully
-    if (containerClient != null)
-    {
-        Console.WriteLine("Container created successfully, press 'Enter' to continue.");
-        Console.ReadLine();
-    }
-    else
-    {
-        Console.WriteLine("Failed to create the container, exiting program.");
-        return;
-    }
-    ```
-    
-
-1. Find the **// CREATE A LOCAL FILE FOR UPLOAD TO BLOB STORAGE** comment, then add the following code directly beneath the comment. This creates a file in the data directory that is uploaded to the container.
-
-    ```csharp
-    // Create a local file in the ./data/ directory for uploading and downloading
-    Console.WriteLine("Creating a local file for upload to Blob storage...");
-    string localPath = "./data/";
-    string fileName = "wtfile" + Guid.NewGuid().ToString() + ".txt";
-    string localFilePath = Path.Combine(localPath, fileName);
-
-    // Write text to the file
-    await File.WriteAllTextAsync(localFilePath, "Hello, World!");
-    Console.WriteLine("Local file created, press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
-
-1. Find the **// UPLOAD THE FILE TO BLOB STORAGE** comment, then add the following code directly beneath the comment. The code gets a reference to a **BlobClient** object by calling the **GetBlobClient** method on the container created in the previous section. It then uploads a generated local file using the **UploadAsync** method. This method creates the blob if it doesn't already exist, and overwrites it if it does.
-
-    ```csharp
-    // Get a reference to the blob and upload the file
-    BlobClient blobClient = containerClient.GetBlobClient(fileName);
-    
-    Console.WriteLine("Uploading to Blob storage as blob:\n\t {0}", blobClient.Uri);
-    
-    // Open the file and upload its data
-    using (FileStream uploadFileStream = File.OpenRead(localFilePath))
-    {
-        await blobClient.UploadAsync(uploadFileStream);
-        uploadFileStream.Close();
-    }
-    
-    // Verify if the file was uploaded successfully
-    bool blobExists = await blobClient.ExistsAsync();
-    if (blobExists)
-    {
-        Console.WriteLine("File uploaded successfully, press 'Enter' to continue.");
-        Console.ReadLine();
-    }
-    else
-    {
-        Console.WriteLine("File upload failed, exiting program..");
-        return;
-    }
-    ```
-
-1. Find the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container with the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
-
-    ```csharp
-    Console.WriteLine("Listing blobs in container...");
-    await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
-    {
-        Console.WriteLine("\t" + blobItem.Name);
-    }
-    
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
-
-1. Find the **// DOWNLOAD THE BLOB TO A LOCAL FILE** comment, then add the following code directly beneath the comment. The code uses the **DownloadAsync** method to download the blob created previously to your local file system. The example code adds a suffix of "DOWNLOADED" to the blob name so that you can see both files in local file system. 
-
-    ```csharp
-    // Add the string "DOWNLOADED" before the .txt extension so it doesn't 
-    // overwrite the original file
-    
-    string downloadFilePath = localFilePath.Replace(".txt", "DOWNLOADED.txt");
-    
-    Console.WriteLine("Downloading blob to: {0}", downloadFilePath);
-    
-    // Download the blob's contents and save it to a file
-    BlobDownloadInfo download = await blobClient.DownloadAsync();
-    
-    using (FileStream downloadFileStream = File.OpenWrite(downloadFilePath))
-    {
-        await download.Content.CopyToAsync(downloadFileStream);
-    }
-    
-    Console.WriteLine("Locate the local file in the 'data' directory created earlier to verify it was downloaded.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
-    ```
-
-1. Find the **// DELETE THE BLOB AND CONTAINER** comment, then add the following code directly beneath the comment. The code cleans up the resources the app created by deleting the entire container using **DeleteAsync**. It also deletes the local files created by the app. 
-
-    ```csharp
-    // Delete the container and the local files
-    Console.WriteLine("Delete container and local files. Press 'Enter' to continue.");
-    Console.ReadLine();
-    
-    await containerClient.DeleteAsync();
-    Console.WriteLine("Container deleted successfully.");
-    
-    Console.WriteLine("Deleting the local source and downloaded files...");
-    File.Delete(localFilePath);
-    File.Delete(downloadFilePath);
-    
-    Console.WriteLine("Finished cleaning up.");
-    ```
-
-## Run the application
-
-Now that the app is complete it's time to build and run it. Because you're using the **DefaultAzureCredential** for authentication you need to login to Azure from the Visual Studio Code terminal.
-
-Follow the steps below to login to Azure:
-
-1. Run the `az login` command in the Visual Studio Code terminal to start the login process.
-
-1. Enter your credentials in the pop-up window that appears.
-
-1. A list of Azure subscriptions will appear in the Visual Studio Code terminal. Select the subscription you used earlier to create the resources. 
-
-Next, run the following command to start the application:
-
-    ```bash
-    dotnet run
-    ```
-
-There are many prompts in the app to allow you to take the time to see what's happening in the portal after each step. Just open the Azure Portal and navigate to the storage account you created earlier. Then select **Data storage > Containers** in the resource pane.
+    Backend responds with **200 OK** and some data.
 
 ## Clean up resources
 
