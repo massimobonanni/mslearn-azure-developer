@@ -48,7 +48,7 @@ In this section of exercise you create a resource group and Azure Storage accoun
     myEmail=myEmail
     ```
 
-1. Create an APIM instance. The **az apim create** command is used to create the instance. The **--sku-name Consumption** option is used to speed up the process for the walkthrough. Replace **myResourceGroup** with the value you chose earlier.
+1. Create an APIM instance. The **az apim create** command is used to create the instance. Replace **myResourceGroup** with the value you chose earlier.
 
     ```bash
     az apim create -n $myApiName \
