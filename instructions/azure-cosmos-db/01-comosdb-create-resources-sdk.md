@@ -35,10 +35,10 @@ In this section of exercise you create a resource group and Azure Cosmos DB acco
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
+1. Create a resource group for the resources needed for this exercise.. If you already have a resource group you want to use, proceed to the next step. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **eastus** with a region near you if needed.
 
     ```
-    az group create --location useast --name myResourceGroup
+    az group create --location eastus --name myResourceGroup
     ```
 
 1. Run the following commands to create the Azure Cosmos DB account, each account name must be unique. The first command creates a variable with a unique name for your CosmosDB account. Run the second command and replace **myResourceGroup** with the name you chose earlier.
