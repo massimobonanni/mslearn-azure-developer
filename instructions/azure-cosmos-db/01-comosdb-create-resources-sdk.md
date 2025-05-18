@@ -76,13 +76,13 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Create the .NET console app.
 
-    ```dotnetcli
+    ```bash
     dotnet new console --framework net8.0
     ```
 
 1. Run the following commands to add the **Microsoft.Azure.Cosmos** package to the project, and also the supporting **Newtonsoft.Json** package.
 
-    ```dotnetcli
+    ```bash
     dotnet add package Microsoft.Azure.Cosmos --version 3.*
     dotnet add package Newtonsoft.Json --version 13.*
     ```
