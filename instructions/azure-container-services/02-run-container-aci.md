@@ -31,10 +31,10 @@ To complete the exercise you need:
 
     > **Note**: If you have previously created a cloud shell that uses a *PowerShell* environment, switch it to ***Bash***.
 
-1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **useast** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
+1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **eastus** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
     ```
-    az group create --location useast --name myResourceGroup
+    az group create --location eastus --name myResourceGroup
     ```
 
 ## Create a container
