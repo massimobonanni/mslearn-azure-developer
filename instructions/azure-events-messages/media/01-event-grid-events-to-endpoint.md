@@ -7,7 +7,7 @@ lab:
 
 # Route events to a custom endpoint with Event Grid
 
-In this exercise, you send events using the **Azure.Messaging.EventGrid** SDK to an Event Grid topic which are consumed and displayed on a message endpoint. 
+In this exercise, you send events using the Azure.Messaging.EventGrid SDK to an Event Grid topic. The event is consumed and displayed on a message endpoint. 
 
 Tasks performed in this exercise:
 
@@ -137,10 +137,10 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **packageAzure.Messaging.EventGrid** package to the project, and also the supporting **dotenv.net** package.
+1. Run the following commands to add the **Azure.Messaging.EventGrid** package to the project, and also the supporting **dotenv.net** package.
 
     ```bash
-    dotnet add packageAzure.Messaging.EventGrid
+    dotnet add package Azure.Messaging.EventGrid
     dotnet add package dotenv.net
     ```
 
