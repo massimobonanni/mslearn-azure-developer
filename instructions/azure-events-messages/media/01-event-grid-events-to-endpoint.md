@@ -106,7 +106,7 @@ Before subscribing to the custom topic, we need to create the endpoint for the e
 
 You subscribe to an Event Grid topic to tell Event Grid which events you want to track and where to send those events. 
 
-1. Subscribe to a topic using the **az eventgrid event-subscription create** command. The following script grabs the needed subscription ID from your account and uses in the creation of the event subscription.
+1. Subscribe to a topic using the **az eventgrid event-subscription create** command. The following script retrieves the subscription ID from your account and uses it in the creation of the event subscription.
 
     ```bash
     endpoint="${siteURL}/api/updates"
