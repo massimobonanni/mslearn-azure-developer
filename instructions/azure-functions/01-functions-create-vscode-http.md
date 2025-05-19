@@ -33,7 +33,7 @@ To complete the exercise you need:
 
 * [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#installing) version 4.x. 
 
-    > <span style="color:red">**Note**:</span> If you have any issues running the function uninstall any existing version of Azure Functions Core Tools on your system, and then reinstall. 
+    > <span style="color:red">**Note**:</span> If you have any issues running the function, uninstall any existing version of Azure Functions Core Tools on your system, and then reinstall. 
 
 ## Create your local project
 
