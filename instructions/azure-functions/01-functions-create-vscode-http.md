@@ -23,8 +23,6 @@ To complete the exercise you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 
-* [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#installing) version 4.x.
-
 * [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms).
 
 * [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) is the target framework.
@@ -32,6 +30,10 @@ To complete the exercise you need:
 * [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) for Visual Studio Code.
 
 * [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) for Visual Studio Code.
+
+* [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#installing) version 4.x. 
+
+    > <span style="color:red">**Note**:</span> If you have any issues running the function uninstall any existing version of Azure Functions Core Tools on your system, and then reinstall. 
 
 ## Create your local project
 
@@ -112,8 +114,7 @@ In this section, you create the Azure resources you need to deploy your local fu
     | Enter a globally unique name for the function app | Type a name that is valid in a URL path, for example `myfunctionapp`. The name you type is validated to make sure that it's unique. |
     | Select a location for new resources | For better performance, select a region near you. |
     | Select a runtime stack | Select **.NET 8.0 Isolated**. |
-    | Select an instance memory size | Select **2048 Default** |
-    | Select the maximum instance count | Accept the default **100**. |
+    | Select resource authentication type | Select **Secrets** |
 
     The extension shows the status of individual resources as they're being created in the **AZURE** area of the terminal window.
     
