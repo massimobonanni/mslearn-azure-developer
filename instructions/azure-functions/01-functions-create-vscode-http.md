@@ -11,8 +11,9 @@ In this exercise, you learn how to create a C\# function that responds to HTTP r
 
 Tasks performed in this exercise:
 
-* Create an Azure App Service resource for a containerize app
-* View the results
+* Create your local project
+* Run the function locally
+* Deploy and execute the function in Azure
 * Clean up resources
 
 This exercise takes approximately **15** minutes to complete.
