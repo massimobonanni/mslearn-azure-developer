@@ -32,7 +32,7 @@ To complete the exercise you need:
 
 * [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) for Visual Studio Code.
 
-* Azure Functions Core Tools version 4.x. Run the commands below in a terminal to install Azure Functions Core Tools on your system.
+* Azure Functions Core Tools version 4.x. Run the commands below in a terminal to install Azure Functions Core Tools on your system. Visit [Azure Function Core Tools on GitHub](https://github.com/Azure/azure-functions-core-tools?tab=readme-ov-file#installing) for installation instructions on other platforms.
 
     ```
     winget uninstall Microsoft.Azure.FunctionsCoreTools
