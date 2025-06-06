@@ -13,9 +13,6 @@ Tasks performed in this exercise:
 
 * Create a resource group
 * Create Azure Event Hubs resources
-    * Create an Event Hubs namespace
-    * Create an event hub
-
 * Create a .NET console app to send and retrieve events
 * Run the application
 * Clean up resources
