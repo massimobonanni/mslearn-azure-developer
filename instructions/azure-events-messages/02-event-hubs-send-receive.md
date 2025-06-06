@@ -41,13 +41,13 @@ In this section of the exercise you create the needed resources in Azure with th
 
 1. Create a resource group for the resources needed for this exercise. If you already have a resource group you want to use, proceed to the next step. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **eastus** with a region near you if needed.
 
-    ```bash
+    ```
     az group create --name myResourceGroup --location eastus
     ```
 
 1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
 
-    ```bash
+    ```
     let rNum=$RANDOM
     resourceGroup=myResourceGroup
     location=eastus
@@ -60,13 +60,13 @@ An Azure Event Hubs namespace is a logical container for event hub resources wit
 
 1. Run the following command to create an Event Hubs namespace.
 
-    ```bash
+    ```
     az eventhubs namespace create --name $namespaceName --resource-group $resourceGroup -l $location
     ```
 
 1. Run the following command to create an event hub named **myEventHub** in the Event Hubs namespace. 
 
-    ```bash
+    ```
     az eventhubs eventhub create --name myEventHub --resource-group $resourceGroup \
       --namespace-name $namespaceName
     ```
@@ -77,27 +77,27 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 1. Run the following commands to create a directory to contain the project and change into the project directory.
 
-    ```bash
+    ```
     mkdir eventhubs
     cd eventhubs
     ```
 
 1. Create the .NET console application.
 
-    ```bash
+    ```
     dotnet new console --framework net8.0
     ```
 
 1. Run the following commands to add the **Azure.Messaging.EventHubs** package to the project, and also the supporting **dotenv.net** package.
 
-    ```bash
+    ```
     dotnet add package Azure.Messaging.EventHubs
     dotnet add package dotenv.net
     ```
 
 1. Run the following command to retrieve the connection string needed for the console application. Note that the name of the event hub is appended to the primary connection string of the namespace.
 
-    ```bash
+    ```
     eventhubConnStr=$(
       az eventhubs namespace authorization-rule keys list \
         --resource-group $resourceGroup \
@@ -108,7 +108,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     )";EntityPath=myEventHub"
     ```
     
-    ```bash
+    ```
     # Copy and save the connection string
     echo $eventhubConnStr
     ```
@@ -119,7 +119,7 @@ In this section you create, and edit, a **.env** file to hold the connection str
 
 1. Run the following command to create the **.env** file to hold the secrets, and then open it in the code editor.
 
-    ```bash
+    ```
     touch .env
     code .env
     ```
@@ -139,7 +139,7 @@ Now it's time to replace the template code in the **Program.cs** file using the 
 
 1. Run the following command in the cloud shell to begin editing the application.
 
-    ```bash
+    ```
     code Program.cs
     ```
 
@@ -268,7 +268,7 @@ In this section you add code to create the producer and consumer clients to send
 
 Now that the app is complete it's time to build and run it. Start the application by running the following command:
 
-```bash
+```
 dotnet run
 ```
 
