@@ -11,12 +11,13 @@ In this exercise, you send events using the Azure.Messaging.EventGrid SDK to an 
 
 Tasks performed in this exercise:
 
-* Create a resource group
-* Enable an Event Grid resource provider
-* Create a topic in Event Grid
-* Create a message endpoint
-* Subscribe to the topic
+* Create Azure Event Grid resources
+    * Enable an Event Grid resource provider
+    * Create a topic in Event Grid
+    * Create a message endpoint
+    * Subscribe to the topic
 * Send an event with a .NET console app
+* Clean up resources
 
 This exercise takes approximately **30** minutes to complete.
 
@@ -26,9 +27,9 @@ To complete the exercise you need:
 
 * An Azure subscription. If you don't already have one, you can sign up for one [https://azure.microsoft.com/](https://azure.microsoft.com/).
 
-## Create a resource group
+## Create Azure Event Grid resources
 
-In this section of exercise you create the needed resources in Azure with the Azure CLI.
+In this section of the exercise you create the needed resources in Azure with the Azure CLI.
 
 1. In your browser navigate to the Azure portal [https://portal.azure.com](https://portal.azure.com); signing in with your Azure credentials if prompted.
 
@@ -55,7 +56,7 @@ In this section of exercise you create the needed resources in Azure with the Az
     siteURL="https://${siteName}.azurewebsites.net"
     ```
 
-## Enable an Event Grid resource provider
+### Enable an Event Grid resource provider
 
 An Azure Resource Provider is a service that defines and manages specific types of resources in Azure. It's what Azure uses behind the scenes when you deploy or manage resources. Register the Event Grid resource provider with the **az provider register** command. 
 
@@ -71,7 +72,7 @@ az provider show --namespace Microsoft.EventGrid --query "registrationState"
 
 > **Note:** This step is only needed on subscriptions that haven't previously used Event Grid.
 
-## Create a topic in Event Grid
+### Create a topic in Event Grid
 
 Create a topic by using the **az eventgrid topic create** command. The name must be unique because it's part of the DNS entry.  
 
@@ -81,7 +82,7 @@ az eventgrid topic create --name $topicName \
     --resource-group $resourceGroup
 ```
 
-## Create a message endpoint
+### Create a message endpoint
 
 Before subscribing to the custom topic, we need to create the endpoint for the event message. Typically, the endpoint takes actions based on the event data. The following script uses a prebuilt web app that displays the event messages. The deployed solution includes an App Service plan, an App Service web app, and source code from GitHub.
 
@@ -102,7 +103,7 @@ Before subscribing to the custom topic, we need to create the endpoint for the e
 
     > **Tip:** Leave the browser running, it is used to show updates.
 
-## Subscribe to the topic
+### Subscribe to the topic
 
 You subscribe to an Event Grid topic to tell Event Grid which events you want to track and where to send those events. 
 
