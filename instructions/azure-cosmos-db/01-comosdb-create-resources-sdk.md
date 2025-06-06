@@ -25,7 +25,7 @@ To complete the exercise you need:
 
 ## Create an Azure Cosmos DB account
 
-In this section of exercise you create a resource group and Azure Cosmos DB account. You also record the endpoint, and access key for the account.
+In this section of the exercise you create a resource group and Azure Cosmos DB account. You also record the endpoint, and access key for the account.
 
 1. In your browser navigate to the Azure portal [https://portal.azure.com](https://portal.azure.com); signing in with your Azure credentials if prompted.
 
