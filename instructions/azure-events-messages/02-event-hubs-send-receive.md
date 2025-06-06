@@ -15,6 +15,7 @@ Tasks performed in this exercise:
 * Create Azure Event Hubs resources
     * Create an Event Hubs namespace
     * Create an event hub
+
 * Create a .NET console app to send and retrieve events
 * Run the application
 * Clean up resources
@@ -71,7 +72,7 @@ An Azure Event Hubs namespace is a logical container for event hub resources wit
       --namespace-name $namespaceName
     ```
 
-## Send events with a .NET console application
+## Send and retrieve events with a .NET console application
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
