@@ -2,19 +2,18 @@
 lab:
     topic: Azure events and messaging
     title: 'Send and retrieve events from Azure Event Hubs'
-    description: 'Learn how send and retrieve events from Azure Event Hubs with the Azure.Messaging.EventHubs SDK.'
+    description: 'Learn how send and retrieve events from Azure Event Hubs with the .NET Azure.Messaging.EventHubs SDK.'
 ---
 
 # Send and retrieve events from Azure Event Hubs
 
-In this exercise, you send and retrieve events using the Azure.Messaging.EventHubs SDK to an event hub in Azure Event Hubs.  
+In this exercise, you build a .NET console app to send and retrieve events from an event hub with the Azure.Messaging.EventHubs SDK.  
 
 Tasks performed in this exercise:
 
 * Create a resource group
 * Create Azure Event Hubs resources
 * Create a .NET console app to send and retrieve events
-* Run the application
 * Clean up resources
 
 This exercise takes approximately **30** minutes to complete.
@@ -121,10 +120,10 @@ In this section you create, and edit, a **.env** file to hold the connection str
     code .env
     ```
 
-1. Add the following code to the **.env** file. Replace **EVENT_HUB_CONNECTION_STRING** with the value you recorded earlier.
+1. Add the following code to the **.env** file. Replace **YOUR-CONNECTION-STRING** with the value you recorded earlier.
 
     ```
-    EVENT_HUB_CONNECTION_STRING="YOUR CONNECTION STRING"
+    EVENT_HUB_CONNECTION_STRING="YOUR-CONNECTION-STRING"
     EVENT_HUB_NAME="myEventHub"
     ```
 
@@ -260,6 +259,8 @@ In this section you add code to create the producer and consumer clients to send
         }
     }
     ```
+
+1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
 ## Run the application
 

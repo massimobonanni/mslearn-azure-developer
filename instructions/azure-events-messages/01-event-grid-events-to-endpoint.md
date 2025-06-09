@@ -12,10 +12,10 @@ In this exercise, you send events using the Azure.Messaging.EventGrid SDK to an 
 Tasks performed in this exercise:
 
 * Create Azure Event Grid resources
-    * Enable an Event Grid resource provider
-    * Create a topic in Event Grid
-    * Create a message endpoint
-    * Subscribe to the topic
+* Enable an Event Grid resource provider
+* Create a topic in Event Grid
+* Create a message endpoint
+* Subscribe to the topic
 * Send an event with a .NET console app
 * Clean up resources
 
@@ -52,7 +52,7 @@ In this section of the exercise you create the needed resources in Azure with th
     resourceGroup=myResourceGroup
     location=eastus
     topicName="mytopic-evgtopic-${rNum}"
-    siteName="az204-evgsite-${rNum}"
+    siteName="evgsite-${rNum}"
     siteURL="https://${siteName}.azurewebsites.net"
     ```
 
