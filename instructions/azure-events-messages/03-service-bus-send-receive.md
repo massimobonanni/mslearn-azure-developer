@@ -68,7 +68,7 @@ In this section of the exercise you create the needed resources in Azure with th
         --location $location
     ```
 
-1. Now that a namespace is created, you need to create a queue to hold the messages. Run the following command to create a queue named **myQueue**.
+1. Now that a namespace is created, you need to create a queue to hold the messages. Run the following command to create a queue named **myqueue**.
 
     ```bash
     az servicebus queue create --resource-group $resourceGroup \
