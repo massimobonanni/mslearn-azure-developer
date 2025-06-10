@@ -78,10 +78,11 @@ To allow your app to send and receive messages, assign your Microsoft Entra user
 
 1. Run the following command to retrieve the resource ID of the Service Bus namespace. The resource ID sets the scope for the role assignment to a specific namespace.
 
-```
-resourceID=$(az storage account show --resource-group $resourceGroup \
-    --name $storAcctName --query id --output tsv)
-```
+    ```
+    resourceID=$(az storage account show --resource-group $resourceGroup \
+        --name $storAcctName --query id --output tsv)
+    ```
+
 1. Run the following command to create and assign the **Storage Queue Data Contributor** role.
 
     ```
