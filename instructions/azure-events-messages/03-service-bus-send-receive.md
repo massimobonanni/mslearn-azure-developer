@@ -2,7 +2,7 @@
 lab:
     topic: Azure events and messaging
     title: 'Send and receive messages from Azure Service Bus'
-    description: 'Learn how send and messages from Azure Azure Service Bus with the with the .NET Azure.Messaging.ServiceBus SDK.'
+    description: 'Learn how send and messages from Azure Service Bus with the with the .NET Azure.Messaging.ServiceBus SDK.'
 ---
 
 # Send and receive messages from Azure Service Bus
