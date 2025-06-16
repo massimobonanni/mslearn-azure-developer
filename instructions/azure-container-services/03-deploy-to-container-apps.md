@@ -7,13 +7,13 @@ lab:
 
 # Deploy a container to Azure Container Apps with the Azure CLI
 
-In this exercise you create a secure Container Apps environment and deploy a simple containerized app.
+In this exercise, you deploy a containerized application to Azure Container Apps using the Azure CLI. You learn how to create a container app environment, deploy your container, and verify that your application is running in Azure.
 
 Tasks performed in this exercise:
 
-* Create a resource group for the container
-* Create a container
-* Verify the container is running
+* Create resources in Azure
+* Create an Azure Container Apps environment
+* Deploy a container app to the environment
 
 This exercise takes approximately **15** minutes to complete.
 
