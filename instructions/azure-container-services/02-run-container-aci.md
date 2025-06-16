@@ -5,9 +5,9 @@ lab:
     description: 'Learn how to use Azure CLI commands to deploy a container to Azure Container Instances.'
 ---
 
-# Build and run a container image with Azure Container Registry Tasks
+# Deploy a container to Azure Container Instances with the Azure CLI
 
-In this exercise, you create a console app that creates a container, database, and an item in Azure Cosmos DB.
+In this exercise, you deploy and run a container in Azure Container Instances using the Azure CLI. You learn how to create a container group, specify container settings, and verify that your containerized application is running in the cloud.
 
 Tasks performed in this exercise:
 
