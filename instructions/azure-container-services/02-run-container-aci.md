@@ -12,10 +12,10 @@ In this exercise, you deploy and run a container in Azure Container Instances us
 Tasks performed in this exercise:
 
 * Create a resource group for the container
-* Create a container
+* Create and deploy a container
 * Verify the container is running
 
-This exercise takes approximately **20** minutes to complete.
+This exercise takes approximately **15** minutes to complete.
 
 ## Before you start
 
@@ -37,7 +37,7 @@ To complete the exercise you need:
     az group create --location eastus --name myResourceGroup
     ```
 
-## Create a container
+## Create and deploy a container
 
 You create a container by providing a name, a Docker image, and an Azure resource group to the **az container create** command. You expose the container to the Internet by specifying a DNS name label.
 
