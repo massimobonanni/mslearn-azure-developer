@@ -1,17 +1,17 @@
 ---
 lab:
     topic: Azure container services
-    title: 'Deploy a container to Azure Container Instances with the Azure CLI'
+    title: 'Deploy a container to Azure Container Instances using Azure CLI commands'
     description: 'Learn how to use Azure CLI commands to deploy a container to Azure Container Instances.'
 ---
 
-# Deploy a container to Azure Container Instances with the Azure CLI
+# Deploy a container to Azure Container Instances using Azure CLI commands
 
-In this exercise, you deploy and run a container in Azure Container Instances using the Azure CLI. You learn how to create a container group, specify container settings, and verify that your containerized application is running in the cloud.
+In this exercise, you deploy and run a container in Azure Container Instances (ACI) using the Azure CLI. You learn how to create a container group, specify container settings, and verify that your containerized application is running in the cloud.
 
 Tasks performed in this exercise:
 
-* Create a resource group for the container
+* Create Azure Container Instance resources in Azure
 * Create and deploy a container
 * Verify the container is running
 
@@ -19,7 +19,7 @@ This exercise takes approximately **15** minutes to complete.
 
 ## Before you start
 
-To complete the exercise you need:
+To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 

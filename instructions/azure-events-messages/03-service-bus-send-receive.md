@@ -7,11 +7,10 @@ lab:
 
 # Send and receive messages from Azure Service Bus
 
-In this exercise, you build a .NET console app to send and receive messages from Azure Service Bus with the Azure.Messaging.EventHubs SDK.  
+In this exercise, you create and configure Azure Service Bus resources, then build a .NET app to send and receive messages using the **Azure.Messaging.ServiceBus** SDK. You learn how to provision a Service Bus namespace and queue, assign permissions, and interact with messages programmatically. 
 
 Tasks performed in this exercise:
 
-* Create a resource group
 * Create Azure Service Bus resources
 * Assign a role to your Microsoft Entra user name
 * Create a .NET console app to send and receive messages

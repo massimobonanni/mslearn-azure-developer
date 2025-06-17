@@ -7,11 +7,10 @@ lab:
 
 # Send and receive messages from Azure Queue storage
 
-In this exercise, you build a .NET console app to send and receive messages from Azure Queue storage with the Azure.StorageQueues SDK.  
+In this exercise, you create and configure Azure Queue Storage resources, then build a .NET app to send and receive messages using the Azure.Storage.Queues SDK. You learn how to provision storage resources, manage queue messages, and clean up your environment when finished. 
 
 Tasks performed in this exercise:
 
-* Create a resource group
 * Create Azure Queue storage resources
 * Assign a role to your Microsoft Entra user name
 * Create a .NET console app to send and receive messages
@@ -301,8 +300,4 @@ Now that you finished the exercise, you should delete the cloud resources you cr
 1. Enter the resource group name and confirm that you want to delete it.
 
 > **CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this 
-
-
-
-
 

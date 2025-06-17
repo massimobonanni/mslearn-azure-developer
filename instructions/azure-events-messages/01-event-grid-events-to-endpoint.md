@@ -7,7 +7,7 @@ lab:
 
 # Route events to a custom endpoint with Event Grid
 
-In this exercise, you send events using the Azure.Messaging.EventGrid SDK to an Event Grid topic. The event is consumed and displayed on a message endpoint. 
+In this exercise, you configure Azure Event Grid to send events to an endpoint. You learn how to create Event Grid resources, set up event subscriptions, and verify that your endpoint receives events from Azure services.
 
 Tasks performed in this exercise:
 
