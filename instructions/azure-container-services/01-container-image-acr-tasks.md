@@ -7,7 +7,7 @@ lab:
 
 # Build and run a container image with Azure Container Registry Tasks
 
-In this exercise, you deploy a container image to an Azure Container Registry resource. You use Azure CLI commands to build and push a Dockerfile-based image.
+In this exercise, you build a container image from your application code and push it to Azure Container Registry using the Azure CLI. You learn how to prepare your app for containerization, create an ACR instance, and store your container image in Azure.
 
 Tasks performed in this exercise:
 
@@ -20,7 +20,7 @@ This exercise takes approximately **20** minutes to complete.
 
 ## Before you start
 
-To complete the exercise you need:
+To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 

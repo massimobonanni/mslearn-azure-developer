@@ -7,7 +7,7 @@ lab:
 
 # Send and retrieve events from Azure Event Hubs
 
-In this exercise, you build a .NET console app to send and retrieve events from an event hub with the Azure.Messaging.EventHubs SDK.  
+In this exercise, you create Azure Event Hubs resources and build a .NET console app to send and receive events using the **Azure.Messaging.EventHubs** SDK. You learn how to provision cloud resources, interact with Event Hubs, and clean up your environment when finished.
 
 Tasks performed in this exercise:
 
