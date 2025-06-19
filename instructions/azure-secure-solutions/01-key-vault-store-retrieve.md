@@ -91,7 +91,8 @@ Next, add a secret to the key vault you created.
 1. Run the following command to create a secret. 
 
     ```
-    az keyvault secret set --vault-name $keyVaultName --name "MySecret" --value "My secret value"
+    az keyvault secret set --vault-name $keyVaultName \ 
+        --name "MySecret" --value "My secret value"
     ```
 
 1. Run the following command to retrieve the secret to verify it was set.
