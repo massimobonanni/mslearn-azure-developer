@@ -19,7 +19,7 @@ This exercise takes approximately **30** minutes to complete.
 
 ## Before you start
 
-To complete the exercise you need:
+To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
 
@@ -80,7 +80,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Microsoft.Azure.Cosmos** package to the project, and also the supporting **Newtonsoft.Json** package.
+1. Run the following commands to add the **Microsoft.Azure.Cosmos** and **Newtonsoft.Json** packages to the project.
 
     ```bash
     dotnet add package Microsoft.Azure.Cosmos --version 3.*

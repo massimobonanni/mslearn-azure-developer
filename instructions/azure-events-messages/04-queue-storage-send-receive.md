@@ -20,7 +20,7 @@ This exercise takes approximately **30** minutes to complete.
 
 ## Before you start
 
-To complete the exercise you need:
+To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can sign up for one [https://azure.microsoft.com/](https://azure.microsoft.com/).
 
@@ -107,7 +107,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Azure.Storage.Queues** package to the project, and also the supporting **Azure.Identity** package.
+1. Run the following commands to add the **Azure.Storage.Queues** and **Azure.Identity** packages to the project.
 
     ```
     dotnet add package Azure.Storage.Queues
@@ -275,7 +275,7 @@ Now it's time to add code to create the queue storage client and create a queue.
 
     **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
 
-    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
 1. Run the following command to start the console app. The app will pause after sending a batch of messages and waits for you to press any key to continue. 
 
