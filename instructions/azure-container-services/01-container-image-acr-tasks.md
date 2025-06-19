@@ -7,7 +7,7 @@ lab:
 
 # Build and run a container image with Azure Container Registry Tasks
 
-In this exercise, you build a container image from your application code and push it to Azure Container Registry using the Azure CLI. You learn how to prepare your app for containerization, create an ACR instance, and store your container image in Azure.
+In this exercise, you build a container image from your application code and push it to Azure Container Registry using Azure CLI. You learn how to prepare your app for containerization, create an ACR instance, and store your container image in Azure.
 
 Tasks performed in this exercise:
 
