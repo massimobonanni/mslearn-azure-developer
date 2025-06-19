@@ -139,35 +139,9 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     code Program.cs
     ```
 
-1. Replace any existing contents with the following code. Be sure to review the comments in the code, and replace **<YOUR-STORAGE-ACCT-NAME>** with the storage account name you recorded earlier.
+1. Replace any existing contents with the following code. Be sure to review the comments in the code.
 
 ```csharp
-using Azure;
-using Azure.Identity;
-using Azure.Storage.Queues;
-using Azure.Storage.Queues.Models;
-using System;
-using System.Threading.Tasks;
-
-// Create a unique name for the queue
-// TODO: Replace the <YOUR-STORAGE-ACCT-NAME> placeholder 
-string queueName = "myqueue-" + Guid.NewGuid().ToString();
-string storageAccountName = "<YOUR-STORAGE-ACCT-NAME>";
-
-// ADD CODE TO CREATE A QUEUE CLIENT AND CREATE A QUEUE
-
-
-
-// ADD CODE TO SEND AND LIST MESSAGES
-
-
-
-// ADD CODE TO UPDATE A MESSAGE AND LIST MESSAGES
-
-
-
-// ADD CODE TO DELETE MESSAGES AND THE QUEUE
-
 
 ```
 
@@ -180,3 +154,14 @@ Now it's time to add code to create the queue storage client and create a queue.
 1. Locate the **// ADD CODE TO CREATE A QUEUE CLIENT AND CREATE A QUEUE** comment and add the following code directly after the comment. Be sure to review the code and comments.
 
 
+
+
+## Clean up resources
+
+Now that you finished the exercise, you should delete the cloud resources you created to avoid unnecessary resource usage.
+
+1. Navigate to the resource group you created and view the contents of the resources used in this exercise.
+1. On the toolbar, select **Delete resource group**.
+1. Enter the resource group name and confirm that you want to delete it.
+
+> **CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this 
