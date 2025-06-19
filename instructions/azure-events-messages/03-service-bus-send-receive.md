@@ -20,7 +20,7 @@ This exercise takes approximately **30** minutes to complete.
 
 ## Before you start
 
-To complete the exercise you need:
+To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can sign up for one [https://azure.microsoft.com/](https://azure.microsoft.com/).
 
