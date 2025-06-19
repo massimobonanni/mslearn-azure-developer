@@ -1,11 +1,11 @@
 ---
 lab:
     topic: Secure solutions in Azure
-    title: "Retrieve secrets from Azure Key Vault"
+    title: "Create and retrieve secrets from Azure Key Vault"
     description: "Learn how to store secrets in Azure Key Vault, and retrieve them in an application."
 ---
 
-# Retrieve secrets from Azure Key Vault
+# Create and retrieve secrets from Azure Key Vault
 
 In this exercise, you  
 
