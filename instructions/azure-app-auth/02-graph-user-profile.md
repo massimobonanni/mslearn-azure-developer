@@ -1,19 +1,18 @@
 ---
 lab:
     topic: Azure authentication and authorization
-    title: 'Implement interactive authentication with MSAL.NET'
-    description: 'Learn how to implement interactive authentication using the MSAL.NET SDK and acquire a token.'
+    title: "Retrieve user profile information with the Microsoft Graph SDK"
+    description: "Learn how to retrieve user profile information from Microsoft Graph."
 ---
 
-# Implement interactive authentication with MSAL.NET
+# Retrieve user profile information with Microsoft Graph SDK
 
-In this exercise, you register a new application in Microsoft Entra ID (Azure AD), then create a .NET console application that uses the **Microsoft.Identity.Client** namespace to perform interactive authentication. 
+In this exercise, you create a .NET app to authenticate with Microsoft Entra ID and request an access token, then call the Microsoft Graph API to retrieve and display your user profile information. You learn how to configure permissions and interact with Microsoft Graph from your application.
 
 Tasks performed in this exercise:
 
 * Register an application with the Microsoft identity platform
-* Create a .NET console app that implements the  **PublicClientApplicationBuilder** class to configure authentication.
-* Acquire a token interactively using the **user.read** Microsoft Graph permission.
+* Create a .NET console application that implements interactive authentication, and uses the **GraphServiceClient** class to retrieve user profile information.
 
 This exercise takes approximately **15** minutes to complete.
 
@@ -37,7 +36,7 @@ To complete the exercise you need:
 
     | Field | Value |
     |--|--|
-    | **Name** | Enter `myMsalApplication`  |
+    | **Name** | Enter `myGraphApplication`  |
     | **Supported account types** | Select **Accounts in this organizational directory only** |
     | **Redirect URI (optional)** | Select **Public client/native (mobile & desktop)** and enter `http://localhost` in the box to the right. |
 
@@ -54,8 +53,8 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 1. Run the following commands to create a directory to contain the project and change into the project directory.
 
     ```
-    mkdir authapp
-    cd authapp
+    mkdir graphapp
+    cd graphapp
     ```
 
 1. Create the .NET console application.
@@ -64,10 +63,11 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Microsoft.Identity.Client** package to the project, and also the supporting **dotenv.net** package.
+1. Run the following commands to add the **Azure.Identity**,  **Microsoft.Graph**, and the **dotenv.net** packages to the project.
 
     ```
-    dotnet add package Microsoft.Identity.Client
+    dotnet add package Azure.Identity
+    dotnet add package Microsoft.Graph
     dotnet add package dotenv.net
     ```
 
@@ -102,22 +102,30 @@ In this section you create, and edit, a **.env** file to hold the secrets you re
 1. Replace any existing contents with the following code. Be sure to review the comments in the code.
 
     ```csharp
-    using Microsoft.Identity.Client;
+    using Microsoft.Graph;
+    using Azure.Identity;
     using dotenv.net;
     
-    // Load environment variables from .env file
+    // Load environment variables from .env file (if present)
     DotEnv.Load();
     var envVars = DotEnv.Read();
     
-    // Retrieve Azure AD Application ID and tenant ID from environment variables
-    string _clientId = envVars["CLIENT_ID"];
-    string _tenantId = envVars["TENANT_ID"];
+    // Read Azure AD app registration values from environment
+    string clientId = envVars["CLIENT_ID"];
+    string tenantId = envVars["TENANT_ID"];
     
-    // ADD CODE TO DEFINE SCOPES AND CREATE CLIENT 
+    // Validate that required environment variables are set
+    if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(tenantId))
+    {
+        Console.WriteLine("Please set CLIENT_ID and TENANT_ID environment variables.");
+        return;
+    }
+    
+    // ADD CODE TO DEFINE SCOPE AND CONFIGURE AUTHENTICATION
     
     
     
-    // ADD CODE TO ACQUIRE AN ACCESS TOKEN
+    // ADD CODE TO CREATE GRAPH CLIENT AND RETRIEVE USER PROFILE
     
     
     ```
@@ -126,40 +134,49 @@ In this section you create, and edit, a **.env** file to hold the secrets you re
 
 ### Add code to complete the application
 
-1. Locate the **// ADD CODE TO DEFINE SCOPES AND CREATE CLIENT** comment and add the following code directly after the comment. Be sure to review the comments in the code.
+1. Locate the **// ADD CODE TO DEFINE SCOPE AND CONFIGURE AUTHENTICATION** comment and add the following code directly after the comment. Be sure to review the comments in the code.
 
     ```csharp
-    // Define the scopes required for authentication
-    string[] _scopes = { "User.Read" };
+    // Define the Microsoft Graph permission scopes required by this app
+    var scopes = new[] { "User.Read" };
     
-    // Build the MSAL public client application with authority and redirect URI
-    var app = PublicClientApplicationBuilder.Create(_clientId)
-        .WithAuthority(AzureCloudInstance.AzurePublic, _tenantId)
-        .WithDefaultRedirectUri()
-        .Build();
+    // Configure interactive browser authentication for the user
+    var options = new InteractiveBrowserCredentialOptions
+    {
+        ClientId = clientId, // Azure AD app client ID
+        TenantId = tenantId, // Azure AD tenant ID
+        RedirectUri = new Uri("http://localhost") // Redirect URI for auth flow
+    };
+    var credential = new InteractiveBrowserCredential(options);
     ```
 
-1. Locate the **// ADD CODE TO ACQUIRE AN ACCESS TOKEN** comment and add the following code directly after the comment. Be sure to review the comments in the code.
+1. Locate the **// ADD CODE TO CREATE GRAPH CLIENT AND RETRIEVE USER PROFILE** comment and add the following code directly after the comment. Be sure to review the comments in the code.
 
     ```csharp
-    // Attempt to acquire an access token silently or interactively
-    AuthenticationResult result;
-    try
-    {
-        // Try to acquire token silently from cache for the first available account
-        var accounts = await app.GetAccountsAsync();
-        result = await app.AcquireTokenSilent(_scopes, accounts.FirstOrDefault())
-                    .ExecuteAsync();
-    }
-    catch (MsalUiRequiredException)
-    {
-        // If silent token acquisition fails, prompt the user interactively
-        result = await app.AcquireTokenInteractive(_scopes)
-                    .ExecuteAsync();
-    }
+    // Create a Microsoft Graph client using the credential
+    var graphClient = new GraphServiceClient(credential);
     
-    // Output the acquired access token to the console
-    Console.WriteLine($"Access Token:\n{result.AccessToken}");
+    // Retrieve and display the user's profile information
+    Console.WriteLine("Retrieving user profile...");
+    await GetUserProfile(graphClient);
+    
+    // Function to get and print the signed-in user's profile
+    async Task GetUserProfile(GraphServiceClient graphClient)
+    {
+        try
+        {
+            // Call Microsoft Graph /me endpoint to get user info
+            var me = await graphClient.Me.GetAsync();
+            Console.WriteLine($"Display Name: {me?.DisplayName}");
+            Console.WriteLine($"Principal Name: {me?.UserPrincipalName}");
+            Console.WriteLine($"User Id: {me?.Id}");
+        }
+        catch (Exception ex)
+        {
+            // Print any errors encountered during the call
+            Console.WriteLine($"Error retrieving profile: {ex.Message}");
+        }
+    }
     ```
 
 1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
@@ -183,8 +200,10 @@ Now that the app is complete it's time to run it.
 1. You should see the results similar to the example below in the console.
 
     ```
-    Access Token:
-    eyJ0eXAiOiJKV1QiLCJub25jZSI6IlZF.........
+    Retrieving user profile...
+    Display Name: <Your account display name>
+    Principal Name: <Your principal name>
+    User Id: 9f5...
     ```
 
 1. Start the application a second time and notice you no longer receive the **Permissions requested** notification. The permission you granted earlier was cached.
