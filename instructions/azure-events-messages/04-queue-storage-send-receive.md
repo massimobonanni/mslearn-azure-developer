@@ -107,7 +107,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Azure.Storage.Queues** package to the project, and also the supporting **Azure.Identity** package.
+1. Run the following commands to add the **Azure.Storage.Queues** and **Azure.Identity** packages to the project.
 
     ```
     dotnet add package Azure.Storage.Queues

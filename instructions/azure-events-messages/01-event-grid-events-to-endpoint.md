@@ -138,7 +138,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Azure.Messaging.EventGrid** package to the project, and also the supporting **dotenv.net** package.
+1. Run the following commands to add the **Azure.Messaging.EventGrid** and **dotenv.net** packages to the project.
 
     ```bash
     dotnet add package Azure.Messaging.EventGrid

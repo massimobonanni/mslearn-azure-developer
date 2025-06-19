@@ -119,7 +119,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Azure.Messaging.ServiceBus** package to the project, and also the supporting **Azure.Identity** package.
+1. Run the following commands to add the **Azure.Messaging.ServiceBus** and **Azure.Identity** packages to the project.
 
     ```
     dotnet add package Azure.Messaging.ServiceBus

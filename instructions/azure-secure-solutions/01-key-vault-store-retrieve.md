@@ -47,7 +47,7 @@ In this section of the exercise you create the needed resources in Azure with th
     ```
     resourceGroup=myResourceGroup
     location=eastus
-    keyVaultName=keyvaultname$RANDOM
+    keyVaultName=mykeyvaultname$RANDOM
     ```
 
 1. Run the following command to create an Azure Key Vault resource. This can take a few minutes to run.
@@ -59,7 +59,7 @@ In this section of the exercise you create the needed resources in Azure with th
 
 ### Assign a role to your Microsoft Entra user name
 
-To create and retrieve a secret, assign your Microsoft Entra user to the **Key Vault Secrets Officer** role. This gives your user account permission to set, delete, and list keys and secrets. In a typical scenario you may want to separate the create/read actions by assigning the **Key Vault Secrets Officer** to one group, and  **Key Vault Secrets User** (can get and list secrets) to another.
+To create and retrieve a secret, assign your Microsoft Entra user to the **Key Vault Secrets Officer** role. This gives your user account permission to set, delete, and list secrets. In a typical scenario you may want to separate the create/read actions by assigning the **Key Vault Secrets Officer** to one group, and **Key Vault Secrets User** (can get and list secrets) to another.
 
 1. Run the following command to retrieve the **userPrincipalName** from your account. This represents who the role will be assigned to.
 
@@ -98,7 +98,7 @@ Next, add a secret to the key vault you created.
 1. Run the following command to retrieve the secret to verify it was set.
 
     ```
-    az keyvault secret show --name "MySecret" --vault-name $myKeyVault
+    az keyvault secret show --name "MySecret" --vault-name $keyVaultName
     ```
 
     This command returns some JSON. The last line contains the password in plain text. 
@@ -107,6 +107,76 @@ Next, add a secret to the key vault you created.
     "value": "My secret value"
     ```
 
+## Create a .NET console app to send and receive messages
 
+Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
+
+1. Run the following commands to create a directory to contain the project and change into the project directory.
+
+    ```
+    mkdir keyvault
+    cd keyvault
+    ```
+
+1. Create the .NET console application.
+
+    ```
+    dotnet new console --framework net8.0
+    ```
+
+1. Run the following commands to add the **Azure.Identity** and **package 2** packages to the project.
+
+    ```
+    dotnet add package Azure.Storage.Queues
+    dotnet add package Azure.Identity
+    ```
+
+### Add the starter code for the project
+
+1. Run the following command in the cloud shell to begin editing the application.
+
+    ```
+    code Program.cs
+    ```
+
+1. Replace any existing contents with the following code. Be sure to review the comments in the code, and replace **<YOUR-STORAGE-ACCT-NAME>** with the storage account name you recorded earlier.
+
+```csharp
+using Azure;
+using Azure.Identity;
+using Azure.Storage.Queues;
+using Azure.Storage.Queues.Models;
+using System;
+using System.Threading.Tasks;
+
+// Create a unique name for the queue
+// TODO: Replace the <YOUR-STORAGE-ACCT-NAME> placeholder 
+string queueName = "myqueue-" + Guid.NewGuid().ToString();
+string storageAccountName = "<YOUR-STORAGE-ACCT-NAME>";
+
+// ADD CODE TO CREATE A QUEUE CLIENT AND CREATE A QUEUE
+
+
+
+// ADD CODE TO SEND AND LIST MESSAGES
+
+
+
+// ADD CODE TO UPDATE A MESSAGE AND LIST MESSAGES
+
+
+
+// ADD CODE TO DELETE MESSAGES AND THE QUEUE
+
+
+```
+
+1. Press **ctrl+s** to save your changes.
+
+### Add code to create a queue client and create a queue
+
+Now it's time to add code to create the queue storage client and create a queue.
+
+1. Locate the **// ADD CODE TO CREATE A QUEUE CLIENT AND CREATE A QUEUE** comment and add the following code directly after the comment. Be sure to review the code and comments.
 
 
