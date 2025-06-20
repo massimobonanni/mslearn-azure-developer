@@ -113,7 +113,7 @@ Next, add a secret to the key vault you created.
     "value": "My secret value"
     ```
 
-## Create a .NET console app to send and receive messages
+## Create a .NET console app to store and retrieve secrets
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
@@ -148,7 +148,6 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 1. Replace any existing contents with the following code. Be sure to replace **YOUR-KEYVAULT-NAME** with your actual key vault name.
 
     ```csharp
-    
     using Azure.Identity;
     using Azure.Security.KeyVault.Secrets;
     
