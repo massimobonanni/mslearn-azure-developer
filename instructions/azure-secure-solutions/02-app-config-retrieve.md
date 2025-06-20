@@ -56,14 +56,14 @@ In this section of the exercise you create the needed resources in Azure with th
     echo $appConfigName
     ```
 
-1. Run the following command to create an Azure Key Vault resource. This can take a few minutes to run.
+1. Run the following command to create an Azure App Configuration resource. This can take a few minutes to run.
 
-```
-az appconfig create --location $location \
-    --name $appConfigName \
-    --resource-group $resourceGroup \
-    --disable-local-auth true
-```
+    ```
+    az appconfig create --location $location \
+        --name $appConfigName \
+        --resource-group $resourceGroup \
+        --disable-local-auth true
+    ```
 
 ### Assign a role to your Microsoft Entra user name
 
@@ -77,7 +77,7 @@ To retrieve configuration information, you need to assign your Microsoft Entra u
         --query userPrincipalName --output tsv)
     ```
 
-1. Run the following command to retrieve the resource ID of the key vault. The resource ID sets the scope for the role assignment to a specific key vault.
+1. Run the following command to retrieve the resource ID of your App Configuration service. The resource ID sets the scope for the role assignment.
 
     ```
     resourceID=$(az appconfig show --resource-group $resourceGroup \
@@ -208,7 +208,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-1. Run the following command to start the console app. The app will pause after sending a batch of messages and waits for you to press any key to continue. 
+1. Run the following command to start the console app. The app will display the **connectionString** value you assigned to the **Dev:conStr** setting earlier in the exercise.
 
     ```
     dotnet run

@@ -354,13 +354,11 @@ Now it's time to add code to complete the application.
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-1. Run the following command to start the console app. The app will pause after sending a batch of messages and waits for you to press any key to continue. 
+1. Run the following command to start the console app. The app will display the menu system for the application. 
 
     ```
     dotnet run
     ```
-
-    The app will display the menu system for the application.
 
 1. You created a secret at the beginning of this exercise, enter **2** to retrieve and display it.
 

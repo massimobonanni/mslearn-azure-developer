@@ -262,27 +262,37 @@ In this section you add code to create the producer and consumer clients to send
 
 1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
-## Run the application
+## Sign into Azure and run the app
 
-Now that the app is complete it's time to build and run it. Start the application by running the following command:
+1. In the cloud shell command-line pane, enter the following command to sign into Azure.
 
-```
-dotnet run
-```
+    ```
+    az login
+    ```
 
-After a few seconds you should see output similar to the following example:
+    **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
 
-```
-A batch of 3 events has been published.
-Press Enter to retrieve and print the events...
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-Receiving all events from the hub...
-Total events in the hub: 3
-Retrieved event: Event 4
-Retrieved event: Event 96
-Retrieved event: Event 74
-Done retrieving events. Press Enter to exit...
-```
+1. Start the application by running the following command:
+
+    ```
+    dotnet run
+    ```
+
+    After a few seconds you should see output similar to the following example:
+    
+    ```
+    A batch of 3 events has been published.
+    Press Enter to retrieve and print the events...
+    
+    Receiving all events from the hub...
+    Total events in the hub: 3
+    Retrieved event: Event 4
+    Retrieved event: Event 96
+    Retrieved event: Event 74
+    Done retrieving events. Press Enter to exit...
+    ```
 
 The application always sends three events to the hub, but it retrieves all events in the hub. If you run the application multiple times an increasing number of events are retrieved. The random numbers used for event creation help you identify different events.
 
