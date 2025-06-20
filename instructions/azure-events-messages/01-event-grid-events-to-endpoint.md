@@ -229,9 +229,17 @@ Now it's time to replace the template code in the **Program.cs** file using the 
 
 1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
-### Run the application
+## Sign into Azure and run the app
 
-Now it's time to run the application and view the results in the web app you created earlier.
+1. In the cloud shell command-line pane, enter the following command to sign into Azure.
+
+    ```
+    az login
+    ```
+
+    **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
 1. Run the following command in the cloud shell to start the console application. You will see the message **Event sent successfully.** when the message is sent.
 

@@ -277,13 +277,11 @@ Now it's time to add code to create the queue storage client and create a queue.
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-1. Run the following command to start the console app. The app will pause after sending a batch of messages and waits for you to press any key to continue. 
+1. Run the following command to start the console app. The app will pause many times during execution waiting for you to press any key to continue. This gives you an opportunity to view the messages in the Azure portal.
 
     ```
     dotnet run
     ```
-
-    The app will pause many times during execution waiting for you to press any key to continue. This gives you an opportunity to view the messages in the Azure portal.
 
 1. In the Azure portal, navigate to the Azure Storage account you created. 
 

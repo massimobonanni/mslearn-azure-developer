@@ -306,13 +306,13 @@ Now it's time to add code to create the Service Bus client and send a batch of m
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-1. Run the following command to start the console app. The app will pause after sending a batch of messages and waits for you to press any key to continue. 
+1. Run the following command to start the console app. The app will pause a various stages and prompt you to press a key to continue. This gives you an opportunity to view the messages in the Azure portal.
 
     ```
     dotnet run
     ```
 
-    The app will pause after sending a batch of messages and waits for you to press any key to continue. This gives you an opportunity to view the messages in the Azure portal.
+    
 
 1. In the Azure portal, navigate to the Service Bus namespace you created. 
 
