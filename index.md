@@ -8,7 +8,9 @@ layout: home
 
 The following exercises are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers perform when building and deploying solutions to Microsoft Azure.
 
-> **Note**: To complete the exercises, you'll need an Azure subscription in which you have sufficient permissions and quota to provision the necessary Azure resources. If you don't already have one, you can sign up for an [Azure account](https://azure.microsoft.com/free). Be sure to review the **Before you start** section in each exercise for the full list of requirements specific to each exercise.
+> **Note**: To complete the exercises, you'll need an Azure subscription in which you have sufficient permissions and quota to provision the necessary Azure resources. If you don't already have one, you can sign up for an [Azure account](https://azure.microsoft.com/free). 
+
+Some exercises may have additional, or different, requirements. Those will contain a **Before you start** section specific to that exercise.
 
 ## Topic areas
 {% assign exercises = site.pages | where_exp:"page", "page.url contains '/instructions'" %}
