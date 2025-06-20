@@ -83,7 +83,7 @@ In this section you create a deployment slot, modify the HTML in the app, and de
 
 ### Update code and deploy to the staging slot
 
-1. In the cloud shell, type **code index.html** to open the editor. Locate the **<h1>** heading tag, and change *Azure App Service - Sample Static HTML Site* to *Azure App Service Staging Slot* - or to anything else that you'd like.
+1. In the cloud shell, type **code index.html** to open the editor. Locate the **\<h1\>** heading tag, and change *Azure App Service - Sample Static HTML Site* to *Azure App Service Staging Slot* - or to anything else that you'd like.
 
 1. Use the commands **ctrl-s** to save, and **ctrl-q** to exit.
 
