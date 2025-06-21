@@ -87,11 +87,11 @@ To allow your app to send and receive messages, assign your Microsoft Entra user
     ```
 1. Run the following command to create and assign the **Azure Event Hubs Data Owner** role, which gives you permission to send and retrieve events.
 
-```
-az role assignment create --assignee $userPrincipal \
-    --role "Azure Event Hubs Data Owner" \
-    --scope $resourceID
-```
+    ```
+    az role assignment create --assignee $userPrincipal \
+        --role "Azure Event Hubs Data Owner" \
+        --scope $resourceID
+    ```
 
 ## Send and retrieve events with a .NET console application
 
