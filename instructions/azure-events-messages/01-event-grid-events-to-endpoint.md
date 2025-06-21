@@ -111,10 +111,11 @@ You subscribe to an Event Grid topic to tell Event Grid which events you want to
 
     ```bash
     endpoint="${siteURL}/api/updates"
-    subId=$(az account show --subscription "" | jq -r '.id')
-
+    topicId=$(az eventgrid topic show --resource-group $resourceGroup \
+        --name $topicName --query "id" --output tsv)
+    
     az eventgrid event-subscription create \
-        --source-resource-id "/subscriptions/$subId/resourceGroups/$resourceGroup/providers/Microsoft.EventGrid/topics/$topicName" \
+        --source-resource-id $topicId \
         --name TopicSubscription \
         --endpoint $endpoint
     ```
