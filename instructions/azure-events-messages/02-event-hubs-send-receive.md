@@ -67,6 +67,32 @@ An Azure Event Hubs namespace is a logical container for event hub resources wit
       --namespace-name $namespaceName
     ```
 
+### Assign a role to your Microsoft Entra user name
+
+To allow your app to send and receive messages, assign your Microsoft Entra user to the **Azure Service Bus Data Owner** role at the Service Bus namespace level. This gives your user account permission to manage and access queues and topics using Azure RBAC. Perform the following steps in the cloud shell.
+
+1. Run the following command to retrieve the **userPrincipalName** from your account. This represents who the role will be assigned to.
+
+    ```
+    userPrincipal=$(az rest --method GET --url https://graph.microsoft.com/v1.0/me \
+        --headers 'Content-Type=application/json' \
+        --query userPrincipalName --output tsv)
+    ```
+
+1. Run the following command to retrieve the resource ID of the Service Bus namespace. The resource ID sets the scope for the role assignment to a specific namespace.
+
+    ```
+    resourceID=$(az eventhubs namespace show --resource-group $resourceGroup \
+        --name $namespaceName --query id --output tsv)
+    ```
+1. Run the following command to create and assign the **Azure Event Hubs Data Owner** role, which gives you permission to send and retrieve events.
+
+```
+az role assignment create --assignee $userPrincipal \
+    --role "Azure Event Hubs Data Owner" \
+    --scope $resourceID
+```
+
 ## Send and retrieve events with a .NET console application
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
@@ -84,50 +110,12 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Azure.Messaging.EventHubs** and **dotenv.net** packages to the project.
+1. Run the following commands to add the **Azure.Messaging.EventHubs** and **Azure.Identity** packages to the project.
 
     ```
     dotnet add package Azure.Messaging.EventHubs
-    dotnet add package dotenv.net
+    dotnet add package Azure.Identity
     ```
-
-1. Run the following command to retrieve the connection string needed for the console application. Note that the name of the event hub is appended to the primary connection string of the namespace.
-
-    ```
-    eventhubConnStr=$(
-      az eventhubs namespace authorization-rule keys list \
-        --resource-group $resourceGroup \
-        --namespace-name $namespaceName \
-        --name RootManageSharedAccessKey \
-        --query primaryConnectionString \
-        --output tsv
-    )";EntityPath=myEventHub"
-    ```
-    
-    ```
-    # Copy and save the connection string
-    echo $eventhubConnStr
-    ```
-
-### Configure the console application
-
-In this section you create, and edit, a **.env** file to hold the connection string you retrieved earlier. 
-
-1. Run the following command to create the **.env** file to hold the secrets, and then open it in the code editor.
-
-    ```
-    touch .env
-    code .env
-    ```
-
-1. Add the following code to the **.env** file. Replace **YOUR-CONNECTION-STRING** with the value you recorded earlier.
-
-    ```
-    EVENT_HUB_CONNECTION_STRING="YOUR-CONNECTION-STRING"
-    EVENT_HUB_NAME="myEventHub"
-    ```
-
-1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
 Now it's time to replace the template code in the **Program.cs** file using the editor in the cloud shell.
 
@@ -145,21 +133,19 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     using Azure.Messaging.EventHubs;
     using Azure.Messaging.EventHubs.Producer;
     using Azure.Messaging.EventHubs.Consumer;
+    using Azure.Identity;
     using System.Text;
-    using dotenv.net;
     
-    // Load environment variables from .env file and assign to variables
-    DotEnv.Load();
-    var envVars = DotEnv.Read();
-    string connectionString = envVars["EVENT_HUB_CONNECTION_STRING"];
-    string eventHubName = envVars["EVENT_HUB_NAME"];
+    // TO-DO: Replace YOUR_EVENT_HUB_NAMESPACE with your actual Event Hub namespace
+    string namespaceURL = "YOUR_EVENT_HUB_NAMESPACE.servicebus.windows.net";
+    string eventHubName = "myEventHub"; 
     
-    // Check for empty connection string or event hub name
-    if (string.IsNullOrWhiteSpace(connectionString) || string.IsNullOrWhiteSpace(eventHubName))
+    // Create a DefaultAzureCredentialOptions object to exclude certain credentials
+    DefaultAzureCredentialOptions options = new()
     {
-        Console.WriteLine("Error: EVENT_HUB_CONNECTION_STRING and EVENT_HUB_NAME environment variables must be set.");
-        return;
-    }
+        ExcludeEnvironmentCredential = true,
+        ExcludeManagedIdentityCredential = true
+    };
     
     // Number of events to be sent to the event hub
     int numOfEvents = 3;
@@ -168,10 +154,12 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     
     
     
-    // CREATE A CONSUMER CLIENT AND RETRIEVE EVENTS
+    // CREATE A CONSUMER CLIENT AND RECEIVE EVENTS
     
     
     ```
+
+1. Press **ctrl+s** to save your changes.
 
 ### Add code to complete the application
 
@@ -182,8 +170,9 @@ In this section you add code to create the producer and consumer clients to send
     ```csharp
     // Create a producer client to send events to the event hub
     EventHubProducerClient producerClient = new EventHubProducerClient(
-        connectionString,
-        eventHubName);
+        namespaceURL,
+        eventHubName,
+        new DefaultAzureCredential(options));
     
     // Create a batch of events 
     using EventDataBatch eventBatch = await producerClient.CreateBatchAsync();
@@ -201,6 +190,7 @@ In this section you add code to create the producer and consumer clients to send
             throw new Exception($"Event {i} is too large for the batch and cannot be sent.");
         }
     }
+    
     try
     {
         // Use the producer client to send the batch of events to the event hub
@@ -216,18 +206,23 @@ In this section you add code to create the producer and consumer clients to send
     }
     ```
 
+1. Press **ctrl+s** to save your changes.
+
 1. Locate the **// CREATE A CONSUMER CLIENT AND RETRIEVE EVENTS** comment and add the following code directly after the comment. Be sure to review the comments in the code.
 
     ```csharp
     // Create an EventHubConsumerClient
     await using var consumerClient = new EventHubConsumerClient(
         EventHubConsumerClient.DefaultConsumerGroupName,
-        connectionString,
-        eventHubName);
+        namespaceURL,
+        eventHubName,
+        new DefaultAzureCredential(options));
     
+    Console.Clear();
     Console.WriteLine("Retrieving all events from the hub...");
     
     // Get total number of events in the hub by summing (last - first + 1) for all partitions
+    // This count is used to determine when to stop reading events
     long totalEventCount = 0;
     string[] partitionIds = await consumerClient.GetPartitionIdsAsync();
     foreach (var partitionId in partitionIds)
@@ -238,8 +233,6 @@ In this section you add code to create the producer and consumer clients to send
             totalEventCount += (properties.LastEnqueuedSequenceNumber - properties.BeginningSequenceNumber + 1);
         }
     }
-    
-    Console.WriteLine($"Total events in the hub: {totalEventCount}");
     
     // Start retrieving events from the event hub and print to the console
     int retrievedCount = 0;
@@ -286,8 +279,7 @@ In this section you add code to create the producer and consumer clients to send
     A batch of 3 events has been published.
     Press Enter to retrieve and print the events...
     
-    Receiving all events from the hub...
-    Total events in the hub: 3
+    Retrieving all events from the hub...
     Retrieved event: Event 4
     Retrieved event: Event 96
     Retrieved event: Event 74
