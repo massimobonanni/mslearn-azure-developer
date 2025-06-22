@@ -7,7 +7,7 @@ lab:
 
 # Create resources in Azure Cosmos DB for NoSQL using .NET
 
-In this exercise, you create a console app that creates a container, database, and an item in Azure Cosmos DB.
+In this exercise, you create an Azure Cosmos DB account and build a .NET console application that uses the Microsoft Azure Cosmos DB SDK to create a database, container, and sample item. You learn how to configure authentication, perform database operations programmatically, and verify your results in the Azure portal.
 
 Tasks performed in this exercise:
 
