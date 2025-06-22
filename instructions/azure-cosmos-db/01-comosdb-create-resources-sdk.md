@@ -12,7 +12,7 @@ In this exercise, you create a console app that creates a container, database, a
 Tasks performed in this exercise:
 
 * Create an Azure Cosmos DB account
-* Create the console app
+* Create a console app that creates a database, container, and an item
 * Run the console app and verify results
 
 This exercise takes approximately **30** minutes to complete.
@@ -41,29 +41,37 @@ In this section of the exercise you create a resource group and Azure Cosmos DB 
     az group create --location eastus --name myResourceGroup
     ```
 
-1. Run the following commands to create the Azure Cosmos DB account, each account name must be unique. The first command creates a variable with a unique name for your CosmosDB account. Run the second command and replace **myResourceGroup** with the name you chose earlier.
+1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise.
 
-    ```bash
-    myCosmosDbAcct=cosmosexercise$RANDOM
+    ```
+    resourceGroup=myResourceGroup
+    accountName=cosmosexercise$RANDOM
     ```
 
-    ```bash
-    az cosmosdb create -n $myCosmosDbAcct -g myResourceGroup
+1. Run the following commands to create the Azure Cosmos DB account, each account name must be unique. 
+
+    ```
+    az cosmosdb create --name $accountName \
+        --resource-group $resourceGroup
     ```
 
-1.  Run the following command to retrieve the **documentEndpoint** for the Azure Cosmos DB account. Record the endpoint from the command results, it's needed later in the exercise. Replace **myResourceGroup** with the names you chose earlier.
+1.  Run the following command to retrieve the **documentEndpoint** for the Azure Cosmos DB account. Record the endpoint from the command results, it's needed later in the exercise.
 
-    ```bash
-    az cosmosdb show -n $myCosmosDbAcct -g myResourceGroup --query "documentEndpoint" --output tsv
+    ```
+    az cosmosdb show --name $accountName \
+        --resource-group $resourceGroup \
+        --query "documentEndpoint" --output tsv
     ```
 
-1. Retrieve the primary key for the account by  using the following command. Record the **primaryMasterKey** from the command results for use in the code. Replace **myResourceGroup** with the names you chose earlier.
+1. Retrieve the primary key for the account with the following command. Record the primary key from the command results, it's needed later in the exercise.
 
-     ```
-    az cosmosdb keys list -n $myCosmosDbAcct -g myResourceGroup
+    ```
+    az cosmosdb keys list --name $accountName \
+        --resource-group $resourceGroup \
+        --query "primaryMasterKey" --output tsv
     ```
 
-## Create the console application
+## Create data resources and an item with a .NET console application
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
@@ -80,12 +88,31 @@ Now that the needed resources are deployed to Azure the next step is to set up t
     dotnet new console --framework net8.0
     ```
 
-1. Run the following commands to add the **Microsoft.Azure.Cosmos** and **Newtonsoft.Json** packages to the project.
+### Configure the console application
+
+1. Run the following commands to add the **Microsoft.Azure.Cosmos**, **Newtonsoft.Json**, and **dotenv.net** packages to the project.
 
     ```bash
     dotnet add package Microsoft.Azure.Cosmos --version 3.*
     dotnet add package Newtonsoft.Json --version 13.*
+    dotnet add package dotenv.net
     ```
+
+1. Run the following command to create the **.env** file to hold the secrets, and then open it in the code editor.
+
+    ```bash
+    touch .env
+    code .env
+    ```
+
+1. Add the following code to the **.env** file. Replace **YOUR_DOCUMENT_ENDPOINT** and **YOUR_ACCOUNT_KEY** with the values you recorded earlier.
+
+    ```
+    DOCUMENT_ENDPOINT="YOUR_DOCUMENT_ENDPOINT"
+    ACCOUNT_KEY="YOUR_ACCOUNT_KEY"
+    ```
+
+1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
 Now it's time to replace the template code in the **Program.cs** file using the editor in the cloud shell.
 
@@ -99,12 +126,57 @@ Now it's time to replace the template code in the **Program.cs** file using the 
 
 1. Replace any existing code with the following code snippet. Be sure to replace the placeholder values for **documentEndpoint** and **primaryKey** following the directions in the code comments.
 
-    The code provides the overall structure of the app, and some necessary elements. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
+    The code provides the overall structure of the app. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
     ```csharp
     using Microsoft.Azure.Cosmos;
+    using dotenv.net;
     
-    namespace CosmosExercise;
+    string databaseName = "myDatabase"; // Name of the database to create or use
+    string containerName = "myContainer"; // Name of the container to create or use
+    
+    // Load environment variables from .env file
+    DotEnv.Load();
+    var envVars = DotEnv.Read();
+    string cosmosDbAccountUrl = envVars["DOCUMENT_ENDPOINT"];
+    string accountKey = envVars["ACCOUNT_KEY"];
+    
+    if (string.IsNullOrEmpty(cosmosDbAccountUrl) || string.IsNullOrEmpty(accountKey))
+    {
+        Console.WriteLine("Please set the DOCUMENT_ENDPOINT and ACCOUNT_KEY environment variables.");
+        return;
+    }
+    
+    // CREATE THE COSMOS DB CLIENT USING THE ACCOUNT URL AND KEY
+    
+    
+    try
+    {
+        // CREATE A DATABASE IF IT DOESN'T ALREADY EXIST
+    
+    
+        // CREATE A CONTAINER WITH A SPECIFIED PARTITION KEY
+    
+    
+        // DEFINE A TYPED ITEM (PRODUCT) TO ADD TO THE CONTAINER
+    
+    
+        // ADD THE ITEM TO THE CONTAINER
+    
+    
+    }
+    catch (CosmosException ex)
+    {
+        // Handle Cosmos DB-specific exceptions
+        // Log the status code and error message for debugging
+        Console.WriteLine($"Cosmos DB Error: {ex.StatusCode} - {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        // Handle general exceptions
+        // Log the error message for debugging
+        Console.WriteLine($"Error: {ex.Message}");
+    }
     
     // This class represents a product in the Cosmos DB container
     public class Product
@@ -113,63 +185,13 @@ Now it's time to replace the template code in the **Program.cs** file using the 
         public string? name { get; set; }
         public string? description { get; set; }
     }
-    
-    public class Program
-    {
-        // Cosmos DB account URL - replace with your actual Cosmos DB account URL
-        static string cosmosDbAccountUrl = "documentEndpoint";
-    
-        // Cosmos DB account key - replace with your actual Cosmos DB account key
-        static string accountKey = "primaryKey";
-    
-        // Name of the database to create or use
-        static string databaseName = "myDatabase";
-    
-        // Name of the container to create or use
-        static string containerName = "myContainer";
-    
-        public static async Task Main(string[] args)
-        {
-            // Create the Cosmos DB client using the account URL and key
-    
-    
-            try
-            {
-                // Create a database if it doesn't already exist
-    
-    
-                // Create a container with a specified partition key
-    
-    
-                // Define a typed item (Product) to add to the container
-    
-    
-                // Add the item to the container
-                // The partition key ensures the item is stored in the correct partition
-    
-    
-            }
-            catch (CosmosException ex)
-            {
-                // Handle Cosmos DB-specific exceptions
-                // Log the status code and error message for debugging
-                Console.WriteLine($"Cosmos DB Error: {ex.StatusCode} - {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                // Handle general exceptions
-                // Log the error message for debugging
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-        }
-    }
     ```
+
+Next, you add code in specified areas of the projects to create the: client, database, container, and add a sample item to the container.
 
 ### Add code to create the client and perform operations 
 
-In this section of the exercise you add code in specified areas of the projects to create the: client, database, container, and add a sample item to the container.
-
-1. Add the following code in the space after the **// Create the Cosmos DB client using the account URL and key** comment. This code defines the client used to connect to your Azure Cosmos DB account.
+1. Add the following code in the space after the **// CREATE THE COSMOS DB CLIENT USING THE ACCOUNT URL AND KEY** comment. This code defines the client used to connect to your Azure Cosmos DB account.
 
     ```csharp
     CosmosClient client = new(
@@ -180,21 +202,24 @@ In this section of the exercise you add code in specified areas of the projects 
 
     >Note: It's a best practice to use the **DefaultAzureCredential** from the *Azure Identity* library. This can require some additional configuration requirements in Azure depending on how your subscription is set up. 
 
-1. Add the following code in the space after the **// Create a database if it doesn't already exist** comment. 
+1. Add the following code in the space after the **// CREATE A DATABASE IF IT DOESN'T ALREADY EXIST** comment. 
 
     ```csharp
-    Microsoft.Azure.Cosmos.Database database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+    Database database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
     Console.WriteLine($"Created or retrieved database: {database.Id}");
     ```
 
-1. Add the following code in the space after the **// Create a container with a specified partition key** comment. 
+1. Add the following code in the space after the **// CREATE A CONTAINER WITH A SPECIFIED PARTITION KEY** comment. 
 
     ```csharp
-    Microsoft.Azure.Cosmos.Database database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
-    Console.WriteLine($"Created or retrieved database: {database.Id}");
+    Container container = await database.CreateContainerIfNotExistsAsync(
+        id: containerName,
+        partitionKeyPath: "/id"
+    );
+    Console.WriteLine($"Created or retrieved container: {container.Id}");
     ```
 
-1. Add the following code in the space after the **// Define a typed item (Product) to add to the container** comment. This defines the item that's added to the container.
+1. Add the following code in the space after the **// DEFINE A TYPED ITEM (PRODUCT) TO ADD TO THE CONTAINER** comment. This defines the item that's added to the container.
 
     ```csharp
     Product newItem = new Product
@@ -205,20 +230,23 @@ In this section of the exercise you add code in specified areas of the projects 
     };
     ```
 
-1. Add the following code in the space after the **// Add the item to the container** comment. 
+1. Add the following code in the space after the **// ADD THE ITEM TO THE CONTAINER** comment. 
 
     ```csharp
     ItemResponse<Product> createResponse = await container.CreateItemAsync(
         item: newItem,
         partitionKey: new PartitionKey(newItem.id)
     );
+
+    Console.WriteLine($"Created item with ID: {createResponse.Resource.id}");
+    Console.WriteLine($"Request charge: {createResponse.RequestCharge} RUs");
     ```
 
 1. Now that the code is complete, save your progress use **ctrl + s** to save the file, and **ctrl + q** to exit the editor.
 
 1. Run the following command in the cloud shell to test for any errors in the project. If you do see errors, open the *Program.cs* file in the editor and check for missing code or pasting errors.
 
-    ```bash
+    ```
     dotnet build
     ```
 
