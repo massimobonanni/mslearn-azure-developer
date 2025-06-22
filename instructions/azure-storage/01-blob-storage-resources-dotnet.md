@@ -7,19 +7,14 @@ lab:
 
 # Create Blob storage resources with the .NET client library
 
-In this exercise, you create a console app that performs the following actions in Azure Blob storage:
-
-* Create a container
-* Upload blobs to a container
-* List the blobs in a container
-* Download blobs
-* Delete a container
+In this exercise, you create an Azure Storage account and build a .NET console application using the Azure Storage Blob client library to create containers, upload files to blob storage, list blobs, and download files. You learn how to authenticate with Azure, perform blob storage operations programmatically, and verify results in the Azure portal.
 
 Tasks performed in this exercise:
 
 * Prepare the Azure resources
-* Create the console app
-* Run the console app and verify results
+* Create a console app to create and download data
+* Run the app and verify results
+* Clean up resources
 
 This exercise takes approximately **30** minutes to complete.
 
@@ -28,13 +23,10 @@ This exercise takes approximately **30** minutes to complete.
 To complete the exercise, you need:
 
 * An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
-* [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms). 
-* [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
-* [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) is the target framework.
 
 ## Create an Azure Storage account
 
-In this section of the exercise you create a resource group and Azure Storage account. You also record the endpoint, and access key for the account.
+In this section of the exercise you create the needed resources in Azure with the Azure CLI.
 
 1. In your browser navigate to the Azure portal [https://portal.azure.com](https://portal.azure.com); signing in with your Azure credentials if prompted.
 
@@ -44,86 +36,173 @@ In this section of the exercise you create a resource group and Azure Storage ac
 
 1. Create a resource group for the resources needed for this exercise. Replace **myResourceGroup** with a name you want to use for the resource group. You can replace **eastus2** with a region near you if needed. If you already have a resource group you want to use, proceed to the next step.
 
-    ```azurecli
+    ```
     az group create --location eastus2 --name myResourceGroup
     ```
 
-1. Run the following commands to create the Azure Storage account, each account name must be unique. The first command creates a variable with a unique name for your storage account. Record the name of your account from the output of the **echo** command. Run the second command and replace **myResourceGroup** with the group you chose earlier. Replace **myLocation** with the location you used earlier.
+1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise.
 
-    ```bash
-    myStorageAcct=storageexercise$RANDOM
-    echo $myStorageAcct
+    ```
+    resourceGroup=myResourceGroup
+    location=eastus
+    accountName=storageacct$RANDOM
     ```
 
-    ```bash
-    az storage account create -g myResourceGroup -n $myStorageAcct -l myLocation --sku Standard_LRS
+1. Run the following commands to create the Azure Storage account, each account name must be unique. The first command creates a variable with a unique name for your storage account. Record the name of your account from the output of the **echo** command. 
+
+    ```
+    az storage account create --name $accountName \
+        --resource-group $resourceGroup \
+        --location $location \
+        --sku Standard_LRS 
+    
+    echo $accountName
     ```
 
-1. Run the following command to retrieve the access key for the Azure Storage account. Replace **myResourceGroup** with the group you chose earlier. Record the access key from the command results, it's needed later in the exercise. 
+### Assign a role to your Microsoft Entra user name
 
-    ```bash
-    az storage account keys list -n $myStorageAcct -g myResourceGroup  --query "[0].value" --output tsv
+To allow your app to send and receive messages, assign your Microsoft Entra user to the **Azure Service Bus Data Owner** role at the Service Bus namespace level. This gives your user account permission to manage and access queues and topics using Azure RBAC. Perform the following steps in the cloud shell.
+
+1. Run the following command to retrieve the **userPrincipalName** from your account. This represents who the role will be assigned to.
+
+    ```
+    userPrincipal=$(az rest --method GET --url https://graph.microsoft.com/v1.0/me \
+        --headers 'Content-Type=application/json' \
+        --query userPrincipalName --output tsv)
     ```
 
-Now that the needed resources are deployed to Azure the next step is to set up the console application. The rest of the exercise is performed in your local environment.
+1. Run the following command to retrieve the resource ID of the storage account. The resource ID sets the scope for the role assignment to a specific namespace.
 
-## Download files for the project
+    ```
+    resourceID=$(az storage account show --name $accountName \
+        --resource-group $resourceGroup \
+        --query id --output tsv)
+    ```
+1. Run the following command to create and assign the **Storage Blob Data Owner** role. This role gives you the permissions to manage containers and items.
 
-In this section you download the starter files for the project. You add code to the starter files to complete the application.
+    ```
+    az role assignment create --assignee $userPrincipal \
+        --role "Storage Blob Data Owner" \
+        --scope $resourceID
+    ```
 
-1. Paste the link below into a web browser and save the file. 
+## Create a .NET console app to create containers and items
 
-    `https://raw.githubusercontent.com/MicrosoftLearning/mslearn-azure-developer/main/allfiles/downloads/dotnet/azure-storage-dotnet.zip`
+Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
-1. Launch **File Explorer** and navigate to the location the file was saved.
+1. Run the following commands to create a directory to contain the project and change into the project directory.
 
-1. Unzip the file into it's own folder.
+    ```
+    mkdir azstor
+    cd azstor
+    ```
 
-## Configure the application
+1. Create the .NET console application.
 
-1. Start **Visual Studio Code** and select the **File > Open Folder...** option in the menu bar. Open the folder *01-blob-storage-resources-dotnet* located inside the unzipped file.
+    ```
+    dotnet new console --framework net8.0
+    ```
 
-1. In the menu bar select the **Terminal > New Terminal** to open a terminal is Visual Studio Code. 
+1. Run the following commands to add the required packages in the application.
 
-1. Run the following commands in the terminal to add the required packages in the application.
-
-    ```bash
+    ```
     dotnet add package Azure.Storage.Blobs
-    dotnet add package dotenv.net
+    dotnet add package Azure.Identity
     ```
 
 1. Run the following command to create a **data** folder in your project. 
 
-    ```bash
+    ```
     mkdir data
     ```
 
-1. Open the *.env* configuration file and replace **YOUR_STORAGE_ACCOUNT_NAME** and **YOUR_STORAGE_ACCOUNT_KEY** with the values you recorded earlier. Save your changes.
+Now it's time to add the code for the project.
 
-Now it's time to complete the code for the project.
+### Add the starter code for the project
+
+1. Run the following command in the cloud shell to begin editing the application.
+
+    ```
+    code Program.cs
+    ```
+
+1. Replace any existing contents with the following code. Be sure to review the comments in the code.
+
+    ```csharp
+    using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Models;
+    using Azure.Identity;
+    
+    Console.WriteLine("Azure Blob Storage exercise\n");
+    
+    // Create a DefaultAzureCredentialOptions object to configure the DefaultAzureCredential
+    DefaultAzureCredentialOptions options = new()
+    {
+        ExcludeEnvironmentCredential = true,
+        ExcludeManagedIdentityCredential = true
+    };
+    
+    // Run the examples asynchronously, wait for the results before proceeding
+    ProcessAsync().GetAwaiter().GetResult();
+    
+    Console.WriteLine("\nPress enter to exit the sample application.");
+    Console.ReadLine();
+    
+    async Task ProcessAsync()
+    {
+        // CREATE A BLOB STORAGE CLIENT
+        
+    
+    
+        // CREATE A CONTAINER
+        
+    
+    
+        // CREATE A LOCAL FILE FOR UPLOAD TO BLOB STORAGE
+        
+    
+    
+        // UPLOAD THE FILE TO BLOB STORAGE
+        
+    
+    
+        // LIST BLOBS IN THE CONTAINER
+        
+    
+    
+        // DOWNLOAD THE BLOB TO A LOCAL FILE
+        
+    
+    }
+    ```
+
+1. Press **ctrl+s** to save your changes, and continue to the next step.
+
 
 ## Add code to complete the project
 
-Open the *Program.cs* file and review the comments to get an understanding of the overall flow of the application. Throughout the rest of the exercise you add code in specified areas to create the full application. 
+Throughout the rest of the exercise you add code in specified areas to create the full application. 
 
-1. Find the **// CREATE A BLOB STORAGE CLIENT** comment, then add the following code directly beneath the comment. The **BlobServiceClient** acts as the primary entry point for managing containers and blobs in a storage account. The client uses the *DefaultAzureCredential* for authentication.
+1. Locate the **// CREATE A BLOB STORAGE CLIENT** comment, then add the following code directly beneath the comment. The **BlobServiceClient** acts as the primary entry point for managing containers and blobs in a storage account. The client uses the *DefaultAzureCredential* for authentication. Be sure to replace **YOUR_ACCOUNT_NAME** with the name you recorded earlier.
 
     ```csharp
-    // Create a credential using the storage account name and key
-    string accountName = envVars["STORAGE_ACCOUNT_NAME"];
-    string accountKey = envVars["STORAGE_ACCOUNT_KEY"];
+    // Create a credential using DefaultAzureCredential with configured options
+    string accountName = "YOUR_ACCOUNT_NAME"; // Replace with your storage account name
     
-    StorageSharedKeyCredential sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
+    // Use the DefaultAzureCredential with the options configured at the top of the program
+    DefaultAzureCredential credential = new DefaultAzureCredential(options);
     
-    // Create the BlobServiceClient using the endpoint and shared key credential
+    // Create the BlobServiceClient using the endpoint and DefaultAzureCredential
     string blobServiceEndpoint = $"https://{accountName}.blob.core.windows.net";
-    BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceEndpoint), sharedKeyCredential);
+    BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceEndpoint), credential);
     ```
 
-1. Find the **// CREATE A CONTAINER** comment, then add the following code directly beneath the comment. Creating a container includes creating an instance of the **BlobServiceClient** class, and then calling the **CreateBlobContainerAsync** method to create the container in your storage account. A GUID value is appended to the container name to ensure that it's unique. The **CreateBlobContainerAsync** method fails if the container already exists.
+1. Press **ctrl+s** to save your changes, and continue to the next step.
+
+1. Locate the **// CREATE A CONTAINER** comment, then add the following code directly beneath the comment. Creating a container includes creating an instance of the **BlobServiceClient** class, and then calling the **CreateBlobContainerAsync** method to create the container in your storage account. A GUID value is appended to the container name to ensure that it's unique. The **CreateBlobContainerAsync** method fails if the container already exists.
 
     ```csharp
-    //Create a unique name for the container
+    ///Create a unique name for the container
     string containerName = "wtblob" + Guid.NewGuid().ToString();
     
     // Create the container and return a container client object
@@ -143,7 +222,8 @@ Open the *Program.cs* file and review the comments to get an understanding of th
         return;
     }
     ```
-    
+
+1. Press **ctrl+s** to save your changes, and continue to the next step.
 
 1. Find the **// CREATE A LOCAL FILE FOR UPLOAD TO BLOB STORAGE** comment, then add the following code directly beneath the comment. This creates a file in the data directory that is uploaded to the container.
 
@@ -153,14 +233,16 @@ Open the *Program.cs* file and review the comments to get an understanding of th
     string localPath = "./data/";
     string fileName = "wtfile" + Guid.NewGuid().ToString() + ".txt";
     string localFilePath = Path.Combine(localPath, fileName);
-
+    
     // Write text to the file
     await File.WriteAllTextAsync(localFilePath, "Hello, World!");
     Console.WriteLine("Local file created, press 'Enter' to continue.");
     Console.ReadLine();
     ```
 
-1. Find the **// UPLOAD THE FILE TO BLOB STORAGE** comment, then add the following code directly beneath the comment. The code gets a reference to a **BlobClient** object by calling the **GetBlobClient** method on the container created in the previous section. It then uploads a generated local file using the **UploadAsync** method. This method creates the blob if it doesn't already exist, and overwrites it if it does.
+1. Press **ctrl+s** to save your changes, and continue to the next step.
+
+1. Locate the **// UPLOAD THE FILE TO BLOB STORAGE** comment, then add the following code directly beneath the comment. The code gets a reference to a **BlobClient** object by calling the **GetBlobClient** method on the container created in the previous section. It then uploads a generated local file using the **UploadAsync** method. This method creates the blob if it doesn't already exist, and overwrites it if it does.
 
     ```csharp
     // Get a reference to the blob and upload the file
@@ -189,7 +271,9 @@ Open the *Program.cs* file and review the comments to get an understanding of th
     }
     ```
 
-1. Find the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container with the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
+1. Press **ctrl+s** to save your changes, and continue to the next step.
+
+1. Locate the **// LIST BLOBS IN THE CONTAINER** comment, then add the following code directly beneath the comment. You list the blobs in the container with the **GetBlobsAsync** method. In this case, only one blob was added to the container, so the listing operation returns just that one blob. 
 
     ```csharp
     Console.WriteLine("Listing blobs in container...");
@@ -202,10 +286,12 @@ Open the *Program.cs* file and review the comments to get an understanding of th
     Console.ReadLine();
     ```
 
-1. Find the **// DOWNLOAD THE BLOB TO A LOCAL FILE** comment, then add the following code directly beneath the comment. The code uses the **DownloadAsync** method to download the blob created previously to your local file system. The example code adds a suffix of "DOWNLOADED" to the blob name so that you can see both files in local file system. 
+1. Press **ctrl+s** to save your changes, and continue to the next step.
+
+1. Locate the **// DOWNLOAD THE BLOB TO A LOCAL FILE** comment, then add the following code directly beneath the comment. The code uses the **DownloadAsync** method to download the blob created previously to your local file system. The example code adds a suffix of "DOWNLOADED" to the blob name so that you can see both files in local file system. 
 
     ```csharp
-    // Add the string "DOWNLOADED" before the .txt extension so it doesn't 
+    // Adds the string "DOWNLOADED" before the .txt extension so it doesn't 
     // overwrite the original file
     
     string downloadFilePath = localFilePath.Replace(".txt", "DOWNLOADED.txt");
@@ -220,47 +306,41 @@ Open the *Program.cs* file and review the comments to get an understanding of th
         await download.Content.CopyToAsync(downloadFileStream);
     }
     
-    Console.WriteLine("Locate the local file in the 'data' directory created earlier to verify it was downloaded.");
-    Console.WriteLine("Press 'Enter' to continue.");
-    Console.ReadLine();
+    Console.WriteLine("Blob downloaded successfully to: {0}", downloadFilePath);
     ```
 
-1. Find the **// DELETE THE BLOB AND CONTAINER** comment, then add the following code directly beneath the comment. The code cleans up the resources the app created by deleting the entire container using **DeleteAsync**. It also deletes the local files created by the app. 
+1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
 
-    ```csharp
-    // Delete the container and the local files
-    Console.WriteLine("Delete container and local files. Press 'Enter' to continue.");
-    Console.ReadLine();
-    
-    await containerClient.DeleteAsync();
-    Console.WriteLine("Container deleted successfully.");
-    
-    Console.WriteLine("Deleting the local source and downloaded files...");
-    File.Delete(localFilePath);
-    File.Delete(downloadFilePath);
-    
-    Console.WriteLine("Finished cleaning up.");
+## Sign into Azure and run the app
+
+1. In the cloud shell command-line pane, enter the following command to sign into Azure.
+
+    ```
+    az login
     ```
 
-## Run the application
+    **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
 
-Now that the app is complete it's time to build and run it. Because you're using the **DefaultAzureCredential** for authentication you need to login to Azure from the Visual Studio Code terminal.
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-Follow the steps below to login to Azure:
+1. Run the following command to start the console app. The app will pause many times during execution waiting for you to press any key to continue. This gives you an opportunity to view the messages in the Azure portal.
 
-1. Run the `az login` command in the Visual Studio Code terminal to start the login process.
-
-1. Enter your credentials in the pop-up window that appears.
-
-1. A list of Azure subscriptions will appear in the Visual Studio Code terminal. Select the subscription you used earlier to create the resources. 
-
-Next, run the following command to start the application:
-
-    ```bash
+    ```
     dotnet run
     ```
 
-There are many prompts in the app to allow you to take the time to see what's happening in the portal after each step. Just open the Azure Portal and navigate to the storage account you created earlier. Then select **Data storage > Containers** in the resource pane.
+1. In the Azure portal, navigate to the Azure Storage account you created. 
+
+1. Expand **> Data storage** in the left navigation and select **Containers**.
+
+1. Select the container the application created and you can view the blob that was uploaded.
+
+1. Run the two commands below to change into the **data** directory and list the files that were uploaded and downloaded.
+
+    ```
+    cd data
+    ls
+    ```
 
 ## Clean up resources
 
@@ -270,4 +350,5 @@ Now that you finished the exercise, you should delete the cloud resources you cr
 1. On the toolbar, select **Delete resource group**.
 1. Enter the resource group name and confirm that you want to delete it.
 
-> **CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this exercise will also be deleted.
+> **CAUTION:** Deleting a resource group deletes all resources contained within it. If you chose an existing resource group for this exercise, any existing resources outside the scope of this 
+
