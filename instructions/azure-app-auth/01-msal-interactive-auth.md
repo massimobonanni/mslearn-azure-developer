@@ -17,12 +17,6 @@ Tasks performed in this exercise:
 
 This exercise takes approximately **15** minutes to complete.
 
-## Before you start
-
-To complete the exercise, you need:
-
-* An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
-
 ## Register a new application
 
 1. In your browser navigate to the Azure portal [https://portal.azure.com](https://portal.azure.com); signing in with your Azure credentials if prompted.
