@@ -7,7 +7,7 @@ lab:
 
 # Implement interactive authentication with MSAL.NET
 
-In this exercise, you register a new application in Microsoft Entra ID (Azure AD), then create a .NET console application that uses the **Microsoft.Identity.Client** namespace to perform interactive authentication. 
+In this exercise, you register an application in Microsoft Entra ID, then create a .NET console application that uses MSAL.NET to perform interactive authentication and acquire an access token for Microsoft Graph. You learn how to configure authentication scopes, handle user consent, and see how tokens are cached for subsequent runs. 
 
 Tasks performed in this exercise:
 
