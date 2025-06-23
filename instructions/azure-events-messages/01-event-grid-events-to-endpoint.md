@@ -1,13 +1,13 @@
 ---
 lab:
     topic: Azure events and messaging
-    title: 'Route events to a custom endpoint with Event Grid'
-    description: 'Learn how to use Event Grid to route events to a custom endpoint.'
+    title: 'Route events to a custom endpoint with Azure Event Grid'
+    description: 'Learn how to use Azure Event Grid to route events to a custom endpoint.'
 ---
 
-# Route events to a custom endpoint with Event Grid
+# Route events to a custom endpoint with Azure Event Grid
 
-In this exercise, you configure Azure Event Grid to send events to an endpoint. You learn how to create Event Grid resources, set up event subscriptions, and verify that your endpoint receives events from Azure services.
+In this exercise, you create an Azure Event Grid topic and a web app endpoint, then build a .NET console application that sends custom events to the Event Grid topic. You learn how to configure event subscriptions, authenticate with Event Grid, and verify that your events are successfully routed to the endpoint by viewing them in the web app.
 
 Tasks performed in this exercise:
 

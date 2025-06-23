@@ -1,13 +1,13 @@
 ---
 lab:
     topic: Azure API Management
-    title: 'Import and configure an API'
+    title: 'Import and configure an API with Azure API Management'
     description: 'Learn how to import, publish, and test an API that conforms to the OpenAPI specification.'
 ---
 
-# Import and configure an API
+# Import and configure an API with Azure API Management
 
-In this exercise, you import and configure the backend settings of an API.
+In this exercise, you create an Azure API Management instance, import an OpenAPI specification backend API, configure the API settings including the web service URL and subscription requirements, and test the API operations to verify they work correctly.
 
 Tasks performed in this exercise:
 

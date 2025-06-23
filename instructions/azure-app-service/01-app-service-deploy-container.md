@@ -7,7 +7,7 @@ lab:
 
 # Deploy a containerized app to Azure App Service
 
-In this exercise you deploy a simple containerized app to Azure App Service. 
+In this exercise, you create an Azure App Service web app configured to run a containerized application by specifying a container image from Microsoft Container Registry. You learn how to configure container settings, deploy the app, and verify that the containerized application is running successfully in Azure App Service.
 
 Tasks performed in this exercise:
 

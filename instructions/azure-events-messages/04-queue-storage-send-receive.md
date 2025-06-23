@@ -7,7 +7,7 @@ lab:
 
 # Send and receive messages from Azure Queue storage
 
-In this exercise, you create and configure Azure Queue Storage resources, then build a .NET app to send and receive messages using the Azure.Storage.Queues SDK. You learn how to provision storage resources, manage queue messages, and clean up your environment when finished. 
+In this exercise, you create and configure Azure Queue Storage resources, then build a .NET app to send and receive messages using the **Azure.Storage.Queues** SDK. You learn how to provision storage resources, manage queue messages, and clean up your environment when finished. 
 
 Tasks performed in this exercise:
 
@@ -75,7 +75,7 @@ To allow your app to send and receive messages, assign your Microsoft Entra user
         --query userPrincipalName --output tsv)
     ```
 
-1. Run the following command to retrieve the resource ID of the Service Bus namespace. The resource ID sets the scope for the role assignment to a specific namespace.
+1. Run the following command to retrieve the resource ID of the storage account. The resource ID sets the scope for the role assignment to a specific namespace.
 
     ```
     resourceID=$(az storage account show --resource-group $resourceGroup \
