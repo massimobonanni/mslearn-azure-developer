@@ -25,6 +25,8 @@ This exercise takes approximately **15** minutes to complete.
 
     > **Note**: If you have previously created a cloud shell that uses a *PowerShell* environment, switch it to ***Bash***.
 
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
+
 1. In the portal, search for and select **App registrations**. 
 
 1. Select **+ New registration**, and when the **Register an application** page appears, enter your application's registration information:
