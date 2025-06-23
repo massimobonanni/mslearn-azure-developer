@@ -18,12 +18,6 @@ Tasks performed in this exercise:
 
 This exercise takes approximately **30** minutes to complete.
 
-## Before you start
-
-To complete the exercise, you need:
-
-* An Azure subscription. If you don't already have one, you can sign up for one [https://azure.microsoft.com/](https://azure.microsoft.com/).
-
 ## Download and deploy the sample app
 
 In this section you download the sample app and set variables to make the commands easier to enter, and then create an Azure App Service resource and deploy a static HTML site using Azure CLI commands.
