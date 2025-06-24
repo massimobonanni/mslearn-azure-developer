@@ -79,7 +79,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 1. Create the .NET console app.
 
     ```bash
-    dotnet new console --framework net8.0
+    dotnet new console
     ```
 
 ### Configure the console application

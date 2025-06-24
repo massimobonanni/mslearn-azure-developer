@@ -56,7 +56,7 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 1. Create the .NET console application.
 
     ```
-    dotnet new console --framework net8.0
+    dotnet new console
     ```
 
 1. Run the following commands to add the **Azure.Identity**,  **Microsoft.Graph**, and the **dotenv.net** packages to the project.
