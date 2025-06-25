@@ -5,7 +5,7 @@ lab:
     description: "Learn how to retrieve user profile information from Microsoft Graph."
 ---
 
-# Retrieve user profile information with Microsoft Graph SDK
+# Retrieve user profile information with the Microsoft Graph SDK
 
 In this exercise, you create a .NET app to authenticate with Microsoft Entra ID and request an access token, then call the Microsoft Graph API to retrieve and display your user profile information. You learn how to configure permissions and interact with Microsoft Graph from your application.
 
