@@ -7,7 +7,7 @@ lab:
 
 # Create and retrieve secrets from Azure Key Vault
 
-In this exercise, you create an Azure Key Vault, store secrets using the Azure CLI, and build a .NET console application that can create and retrieve secrets from the key vault using the Azure SDK. You learn how to configure authentication, manage secrets programmatically, and clean up resources when finished.  
+In this exercise, you create an Azure Key Vault, store secrets using the Azure CLI, and build a .NET console application that can create and retrieve secrets from the key vault. You learn how to configure authentication, manage secrets programmatically, and clean up resources when finished.  
 
 Tasks performed in this exercise:
 
