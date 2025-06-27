@@ -105,7 +105,7 @@ az appconfig kv set --name $appConfigName \
     --value connectionString
 ```
 
-This command returns some JSON. The last line contains the password in plain text. 
+This command returns some JSON. The last line contains the value in plain text. 
 
 ```json
 "value": "connectionString"
