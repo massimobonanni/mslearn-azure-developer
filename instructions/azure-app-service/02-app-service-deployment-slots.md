@@ -36,7 +36,7 @@ In this section you download the sample app and set variables to make the comman
     git clone https://github.com/Azure-Samples/html-docs-hello-world.git
     ```
 
-1. Set variables to hold the resource group and app names by running the following commands. Make note of the value of the **appName** that is displayed after the commands run, you'll need it later in this exercise.
+1. Set variables to hold the resource group and app names by running the following commands. You can replace the **rg-mywebapp** value for **resourceGroup** if you have a resource group you want to use. Make note of the value of the **appName** that is displayed after the commands run, you'll need it later in this exercise.
 
     ```bash
     resourceGroup=rg-mywebapp
