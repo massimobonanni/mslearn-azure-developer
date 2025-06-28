@@ -2,7 +2,7 @@
 lab:
     topic: Azure Application Insights
     title: 'Monitor an application with autoinstrumentation'
-    description: 'Learn how to monitor an application in Application Insights without additional code by configuring autoinstrumentation '
+    description: 'Learn how to monitor an application in Application Insights without modifying code by configuring autoinstrumentation '
 ---
 
 # Monitor an application with autoinstrumentation
