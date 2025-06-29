@@ -1,13 +1,13 @@
 ---
 lab:
-    topic: Azure Application Insights
+    topic: Application Insights
     title: 'Monitor an application with autoinstrumentation'
     description: 'Learn how to monitor an application in Application Insights without modifying code by configuring autoinstrumentation '
 ---
 
 # Monitor an application with autoinstrumentation
 
-In this exercise, you create an Azure App Service web app with Application Insights enabled, configure autoinstrumentation without modifying code, create and deploy a Blazor application, and then view application metrics and error data in Application Insights. Implementing comprehensive application monitoring and observability without having to make changes to your code makes deployments and migrations simpler.
+In this exercise, you create an Azure App Service web app with Application Insights enabled, configure autoinstrumentation without modifying code, create and deploy a Blazor application, and then view application metrics and error data in Application Insights. Implementing comprehensive application monitoring and observability, without having to make changes to your code, makes deployments and migrations simpler.
 
 Tasks performed in this exercise:
 
