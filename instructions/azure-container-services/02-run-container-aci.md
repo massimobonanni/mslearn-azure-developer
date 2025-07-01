@@ -44,13 +44,13 @@ You create a container by providing a name, a Docker image, and an Azure resourc
 1. Run the following command to create a container instance. Replace **myResourceGroup** and **myLocation** with the values you used earlier. It takes a few minutes for the operation to complete.
 
     ```bash
-    az container create --resource-group myResourceGroup 
-        --name mycontainer 
-        --image mcr.microsoft.com/azuredocs/aci-helloworld 
-        --ports 80 
-        --dns-name-label $DNS_NAME_LABEL --location myLocation
-        --os-type Linux
-        --cpu 1
+    az container create --resource-group myResourceGroup \
+        --name mycontainer \
+        --image mcr.microsoft.com/azuredocs/aci-helloworld \
+        --ports 80 \
+        --dns-name-label $DNS_NAME_LABEL --location myLocation \
+        --os-type Linux \
+        --cpu 1 \
         --memory 1.5 
     ```
 
@@ -65,9 +65,9 @@ You can check the containers build status with the **az container show** command
 1. Run the following command to check the provisioning status of the container you created. Replace **myResourceGroup** with the value you used earlier.
 
     ```bash
-    az container show --resource-group myResourceGroup 
-        --name mycontainer 
-        --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" 
+    az container show --resource-group myResourceGroup \
+        --name mycontainer \
+        --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" \
         --out table 
     ```
 
