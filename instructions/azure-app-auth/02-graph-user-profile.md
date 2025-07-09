@@ -16,6 +16,18 @@ Tasks performed in this exercise:
 
 This exercise takes approximately **15** minutes to complete.
 
+## Before you start
+
+To complete the exercise, you need:
+
+* An Azure subscription. If you don't already have one, you can [sign up for one](https://azure.microsoft.com/).
+
+* [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms).
+
+* [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) or greater.
+
+* [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) for Visual Studio Code.
+
 ## Register a new application
 
 1. In your browser navigate to the Azure portal [https://portal.azure.com](https://portal.azure.com); signing in with your Azure credentials if prompted.
@@ -44,14 +56,15 @@ This exercise takes approximately **15** minutes to complete.
  
 ## Create a .NET console app to send and receive messages
 
-Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
+Now that the needed resources are deployed to Azure the next step is to set up the console application. TThe following steps are performed in your local environment.
 
-1. Run the following commands to create a directory to contain the project and change into the project directory.
+1. Create a folder named **graphapp**, or a name of your choosing, for the project.
 
-    ```
-    mkdir graphapp
-    cd graphapp
-    ```
+1. Launch **Visual Studio Code** and select **File > Open folder...** and select the project folder.
+
+1. Select **View > Terminal** to open a terminal.
+
+1. Run the following command in the VS Code terminal to create the .NET console application.
 
 1. Create the .NET console application.
 
@@ -71,31 +84,20 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 
 In this section you create, and edit, a **.env** file to hold the secrets you recorded earlier. 
 
-1. Run the following command to create the **.env** file, and then open it in the code editor.
+1. Select **File > New file...** and create a file named *.env* in the project folder.
 
-    ```
-    touch .env
-    code .env
-    ```
-
-1. Add the following code to the **.env** file. Replace **YOUR_CLIENT_ID**, and **YOUR_TENANT_ID** with the values you recorded earlier.
+1. Open the **.env** file and add the following code. Replace **YOUR_CLIENT_ID**, and **YOUR_TENANT_ID** with the values you recorded earlier.
 
     ```
     CLIENT_ID="YOUR_CLIENT_ID"
     TENANT_ID="YOUR_TENANT_ID"
     ```
 
-1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
+1. Press **ctrl+s** to save the file.
 
 ### Add the starter code for the project
 
-1. Run the following command in the cloud shell to begin editing the application.
-
-    ```
-    code Program.cs
-    ```
-
-1. Replace any existing contents with the following code. Be sure to review the comments in the code.
+1. Open the *Program.cs* file and replace any existing contents with the following code. Be sure to review the comments in the code.
 
     ```csharp
     using Microsoft.Graph;
@@ -175,7 +177,7 @@ In this section you create, and edit, a **.env** file to hold the secrets you re
     }
     ```
 
-1. Press **ctrl+s** to save the file, then **ctrl+q** to exit the editor.
+1. Press **ctrl+s** to save the file.
 
 ## Run the application
 
