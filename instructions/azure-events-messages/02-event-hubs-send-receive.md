@@ -222,7 +222,7 @@ In this section you add code to create the producer and consumer clients to send
     foreach (var partitionId in partitionIds)
     {
         PartitionProperties properties = await consumerClient.GetPartitionPropertiesAsync(partitionId);
-        if (properties.LastEnqueuedSequenceNumber >= properties.BeginningSequenceNumber)
+        if (!properties.IsEmpty && properties.LastEnqueuedSequenceNumber >= properties.BeginningSequenceNumber)
         {
             totalEventCount += (properties.LastEnqueuedSequenceNumber - properties.BeginningSequenceNumber + 1);
         }
