@@ -39,6 +39,12 @@ To complete the exercise, you need:
     winget install Microsoft.Azure.FunctionsCoreTools
     ```
 
+    If you encounter any errors installing Azure Function Core Tools, run the following command and then retry the installation.
+
+    ```
+    winget source reset --force
+    ```
+
 ## Create your local project
 
 In this section, you use Visual Studio Code to create a local Azure Functions project in C#. Later in this exercise, you publish your function code to Azure.
