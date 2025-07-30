@@ -39,11 +39,7 @@ To complete the exercise, you need:
     winget install Microsoft.Azure.FunctionsCoreTools
     ```
 
-    If you encounter any errors installing Azure Function Core Tools, run the following command and then retry the installation.
-
-    ```
-    winget source reset --force
-    ```
+    If you encounter any errors installing Azure Function Core Tools, search for a solution based on the error code. Then retry the **winget install** command in the previous step.
 
 ## Create your local project
 
