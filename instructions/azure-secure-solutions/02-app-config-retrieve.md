@@ -113,7 +113,8 @@ Run the following command to store the placeholder connection string.
 ```
 az appconfig kv set --name $appConfigName \
     --key Dev:conStr \
-    --value connectionString
+    --value connectionString \
+    --yes
 ```
 
 This command returns some JSON. The last line contains the value in plain text. 
