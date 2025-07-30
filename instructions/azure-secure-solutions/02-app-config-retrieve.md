@@ -50,13 +50,24 @@ In this section of the exercise you create the needed resources in Azure with th
     echo $appConfigName
     ```
 
+1. Run the following command to ensure the **Microsoft.AppConfiguration** provider is registered for your subscription.
+
+    ```
+    az provider register --namespace Microsoft.AppConfiguration
+    ```
+
+1. It can take a few minutes for the registration to complete. Run the following command to check the status of the registration. Proceed to the next step when the results return **Registered**.
+
+    ```
+    az provider show --namespace Microsoft.AppConfiguration --query "registrationState"
+    ```
+
 1. Run the following command to create an Azure App Configuration resource. This can take a few minutes to run.
 
     ```
     az appconfig create --location $location \
         --name $appConfigName \
         --resource-group $resourceGroup \
-        --disable-local-auth true
     ```
 
 ### Assign a role to your Microsoft Entra user name
