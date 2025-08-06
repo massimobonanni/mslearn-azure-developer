@@ -51,6 +51,7 @@ Selecting **Create** will open a template with a few tabs to fill out with infor
     |--|--|
     | **Enable Application Insights** | Select **Yes**. |
     | **Application Insights** | Select **Create new** and a dialog box will appear. Enter `autoinstrument-insights` in the **Name** field of the dialog box. Then select **OK** to accept the name. |
+    | **Workspace** | Enter `Workspace` if the field isn't already filled in and locked. |
 
 1. Select **Review + create** and review the details of your deployment. Then select **Create** to create the resources.
 

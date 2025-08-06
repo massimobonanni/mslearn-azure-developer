@@ -81,7 +81,7 @@ You can check the containers build status with the **az container show** command
 
     > **Note:** If your container is in the **Creating** state, wait a few moments and run the command again until you see the **Succeeded** state.
 
-1. From a browser, navigate to your container's FQDN to see it running. The image isn't running You may get a warning that the site isn't safe.
+1. From a browser, navigate to your container's FQDN to see it running. You may get a warning that the site isn't safe.
 
 ## Clean up resources
 
