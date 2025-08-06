@@ -50,7 +50,7 @@ To complete the exercise, you need:
  
 ## Create a .NET console app to send and receive messages
 
-Now that the needed resources are deployed to Azure the next step is to set up the console application. TThe following steps are performed in your local environment.
+Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in your local environment.
 
 1. Create a folder named **graphapp**, or a name of your choosing, for the project.
 
@@ -59,8 +59,6 @@ Now that the needed resources are deployed to Azure the next step is to set up t
 1. Select **View > Terminal** to open a terminal.
 
 1. Run the following command in the VS Code terminal to create the .NET console application.
-
-1. Create the .NET console application.
 
     ```
     dotnet new console

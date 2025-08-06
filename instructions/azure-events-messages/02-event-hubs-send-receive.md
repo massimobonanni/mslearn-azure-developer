@@ -36,7 +36,7 @@ In this section of the exercise you create the needed resources in Azure with th
     az group create --name myResourceGroup --location eastus
     ```
 
-1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
+1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
 
     ```
     resourceGroup=myResourceGroup
@@ -121,7 +121,7 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     code Program.cs
     ```
 
-1. Replace any existing contents with the following code. Be sure to review the comments in the code.
+1. Replace any existing contents with the following code. Be sure to review the comments in the code, and replace **YOUR_EVENT_HUB_NAMESPACE** with your event hub namespace.
 
     ```csharp
     using Azure.Messaging.EventHubs;

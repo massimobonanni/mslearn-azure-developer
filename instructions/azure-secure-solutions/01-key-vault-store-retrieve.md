@@ -36,7 +36,7 @@ In this section of the exercise you create the needed resources in Azure with th
     az group create --name myResourceGroup --location eastus
     ```
 
-1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
+1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
 
     ```
     resourceGroup=myResourceGroup

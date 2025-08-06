@@ -53,7 +53,7 @@ In this section, you use Visual Studio Code to create a local Azure Functions pr
 
     | Prompt | Action |
     |--|--|
-    | Select the folder that will contain your function projects | Select **Browse...** to select a folder for you app.
+    | Select the folder that will contain your function project | Select **Browse...** to select a folder for your app.
     | Select a language | Select **C#**. |
     | Select a .NET runtime | Select **.NET 8.0 Isolated** |
     | Select a template for your project's first function | Select **HTTP trigger**.<sup>1</sup> |

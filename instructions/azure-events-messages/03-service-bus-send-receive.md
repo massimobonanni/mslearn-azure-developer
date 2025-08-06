@@ -36,7 +36,7 @@ In this section of the exercise you create the needed resources in Azure with th
     az group create --name myResourceGroup --location eastus
     ```
 
-1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
+1. Many of the commands require unique names and use the same parameters. Creating some variables will reduce the changes needed to the commands that create resources. Run the following commands to create the needed variables. Replace **myResourceGroup** with the name you're using for this exercise. If you changed the location in the previous step, make the same change in the **location** variable.
 
     ```
     resourceGroup=myResourceGroup
@@ -316,7 +316,7 @@ Now it's time to add code to create the Service Bus client and send a batch of m
 
 1. Select **Peek from start** and the three messages should appear after a few seconds.
 
-1. In the cloud shell, press any key to continue and the application will process the three message. 
+1. In the cloud shell, press any key to continue and the application will process the three messages. 
  
 1. Return to the portal after the application has completed processing the messages. Select **Peek from start** again and notice there are no messages in the queue.
 
