@@ -75,7 +75,7 @@ Visual Studio Code integrates with Azure Functions Core tools to let you run thi
 
     ![Screenshot of the endpoint of your HTTP-triggered function is displayed in the Terminal panel.](./media/01/run-function-local.png)
 
-1. With Core Tools running, go to the **Azure: Functions** area. Under **Functions**, expand **Local Project** > **Functions**. Right-click the **HttpExample** function and select **Execute Function Now...**.
+1. With Core Tools running, open the **Azure** extension. In the **Workspace** section of the extension, expand **Local Project** > **Functions**. Right-click the **HttpExample** function and select **Execute Function Now...**.
 
     ![Screenshot showing the location of the Execute Function Now... step.](./media/01/execute-function-local.png)
 

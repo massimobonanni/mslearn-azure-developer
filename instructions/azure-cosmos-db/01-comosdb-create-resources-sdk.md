@@ -69,6 +69,8 @@ In this section of the exercise you create a resource group and Azure Cosmos DB 
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
+>**Tip:** Resize the cloud shell to display more information, and code, by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
+
 1. Create a folder for the project and change in to the folder.
 
     ```bash

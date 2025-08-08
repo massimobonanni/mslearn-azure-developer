@@ -26,7 +26,7 @@ This exercise takes approximately **15** minutes to complete.
 
     ![Screenshot of the Web App tile.](./media/01/create-web-app-tile.png)
 
-Selecting **Create** will open a template with a few tabs to fill out with information about your deployment. The following steps walk you through what changes to make in the relevant tabs.
+    Selecting **Create** will open a template with a few tabs to fill out with information about your deployment. The following steps walk you through what changes to make in the relevant tabs.
 
 1. Fill out the **Basics** tab with the information in the following table:
 
@@ -46,7 +46,7 @@ Selecting **Create** will open a template with a few tabs to fill out with infor
 
     | Setting | Action |
     |--|--|
-    | **Sidecar support** | Retain default off position. |
+    | **Sidecar support** | Slider should be set to the **off** position. |
     | **Image Source** | Select **Other container registries**. |
     | **Access Type** | Retain default **Public** selection. |
     | **Registry server URL** | Enter `mcr.microsoft.com/k8se`. |
