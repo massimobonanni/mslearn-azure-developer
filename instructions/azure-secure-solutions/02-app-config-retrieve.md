@@ -127,6 +127,8 @@ This command returns some JSON. The last line contains the value in plain text.
 
 Now that the needed resources are deployed to Azure the next step is to set up the console application. The following steps are performed in the cloud shell.
 
+>**Tip:** Resize the cloud shell to display more information, and code, by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
+
 1. Run the following commands to create a directory to contain the project and change into the project directory.
 
     ```
