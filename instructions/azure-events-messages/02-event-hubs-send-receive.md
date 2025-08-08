@@ -63,7 +63,7 @@ An Azure Event Hubs namespace is a logical container for event hub resources wit
 
 ### Assign a role to your Microsoft Entra user name
 
-To allow your app to send and receive messages, assign your Microsoft Entra user to the **Azure Service Bus Data Owner** role at the Service Bus namespace level. This gives your user account permission to manage and access queues and topics using Azure RBAC. Perform the following steps in the cloud shell.
+To allow your app to send and receive messages, assign your Microsoft Entra user to the **Azure Event Hubs Data Owner** role at the Event Hubs namespace level. This gives your user account permission to manage and access queues and topics using Azure RBAC. Perform the following steps in the cloud shell.
 
 1. Run the following command to retrieve the **userPrincipalName** from your account. This represents who the role will be assigned to.
 
@@ -73,7 +73,7 @@ To allow your app to send and receive messages, assign your Microsoft Entra user
         --query userPrincipalName --output tsv)
     ```
 
-1. Run the following command to retrieve the resource ID of the Service Bus namespace. The resource ID sets the scope for the role assignment to a specific namespace.
+1. Run the following command to retrieve the resource ID of the Event Hubs namespace. The resource ID sets the scope for the role assignment to a specific namespace.
 
     ```
     resourceID=$(az eventhubs namespace show --resource-group $resourceGroup \
