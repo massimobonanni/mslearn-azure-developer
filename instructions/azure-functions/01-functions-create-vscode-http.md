@@ -95,7 +95,7 @@ In this section you create an Azure Function App resource and deploy the functio
 
 Before you can publish your app, you must sign in to Azure. If you already signed in, go to the next section.
 
-1. If you aren't already signed in, choose the Azure icon in the Activity bar, then in the **Azure: Functions** area, choose **Sign in to Azure...**.
+1. If you aren't already signed in, choose the Azure icon in the Activity bar, then in the **Azure: Resources** area, choose **Sign in to Azure...**.
 
     ![Screenshot of the Sign in to Azure button.](./media/01/functions-sign-into-azure.png)
 
