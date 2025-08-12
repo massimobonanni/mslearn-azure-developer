@@ -47,7 +47,7 @@ In this section you download the sample app and set variables to make the comman
     echo $appName
     ```
 
-1. Navigate to the directory that contains the sample code and run the **az webapp up** command. **Note:** This command might take a few minutes to run.
+1. Navigate to the directory that contains the sample code and run the **az webapp up** command. 
 
     ```bash
     cd html-docs-hello-world
@@ -56,6 +56,8 @@ In this section you download the sample app and set variables to make the comman
     ```
 
     Now that your deployment has finished it's time to view the web app.
+
+    > **Note:** This command might take a few minutes to run.
 
 1. In the Azure portal navigate to the web app you deployed. You can enter the name you noted earlier in the **Search resources, services, and docs (G + /)** search bar, and select the resource from the list.
 
