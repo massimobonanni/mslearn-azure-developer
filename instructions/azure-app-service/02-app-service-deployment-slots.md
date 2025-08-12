@@ -103,7 +103,7 @@ In this section you create a deployment slot, modify the HTML in the app, and de
 
 ## Swap the staging and production slots
 
-You can perform a swap in the Azure portal with the **Swap** option in the toolbar. The **Swap** option will appear in the toolbar if you select **Overview** or **Deployment > Deployment slots** in the left menu.
+You can perform a swap in the Azure portal with the **Swap** option in the toolbar. The **Swap** option will appear in the toolbar if you select **Overview** or **Deployment > Deployment slots** in the left menu of your web app.
 
 1. In the Azure portal, select **Swap** in the toolbar to open the **Swap** panel.
 
