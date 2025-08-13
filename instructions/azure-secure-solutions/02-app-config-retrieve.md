@@ -68,7 +68,11 @@ In this section of the exercise you create the needed resources in Azure with th
     az appconfig create --location $location \
         --name $appConfigName \
         --resource-group $resourceGroup
+        --sku Free
     ```
+
+    >[!Alert] If there is an issue creating the AppConfig Resource due to quota restrictions using the **Free** SKU value, please use **Developer** instead.
+    
 
 ### Assign a role to your Microsoft Entra user name
 
