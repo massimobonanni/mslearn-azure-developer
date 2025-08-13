@@ -65,6 +65,8 @@ In this section, you use Visual Studio Code to create a local Azure Functions pr
 
 1. Visual Studio Code uses the provided information and generates an Azure Functions project with an HTTP trigger. You can view the local project files in the Explorer.
 
+    > **Note**: If VS Code displays a popup with the title **Do you trust the authors of the files in this folder?**, select the **Yes, I trust the authors** button.
+
 ### Run the function locally
 
 Visual Studio Code integrates with Azure Functions Core tools to let you run this project on your local development computer before you publish to Azure.
