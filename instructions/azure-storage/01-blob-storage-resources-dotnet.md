@@ -202,7 +202,7 @@ Throughout the rest of the exercise you add code in specified areas to create th
 1. Locate the **// CREATE A CONTAINER** comment, then add the following code directly beneath the comment. Creating a container includes creating an instance of the **BlobServiceClient** class, and then calling the **CreateBlobContainerAsync** method to create the container in your storage account. A GUID value is appended to the container name to ensure that it's unique. The **CreateBlobContainerAsync** method fails if the container already exists.
 
     ```csharp
-    ///Create a unique name for the container
+    // Create a unique name for the container
     string containerName = "wtblob" + Guid.NewGuid().ToString();
     
     // Create the container and return a container client object
