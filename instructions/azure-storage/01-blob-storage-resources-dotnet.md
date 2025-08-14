@@ -143,7 +143,7 @@ Now it's time to add the code for the project.
     };
     
     // Run the examples asynchronously, wait for the results before proceeding
-    ProcessAsync().GetAwaiter().GetResult();
+    await ProcessAsync();
     
     Console.WriteLine("\nPress enter to exit the sample application.");
     Console.ReadLine();
