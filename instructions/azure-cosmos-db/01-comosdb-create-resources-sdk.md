@@ -122,7 +122,7 @@ Now it's time to replace the template code in the **Program.cs** file using the 
     code Program.cs
     ```
 
-1. Replace any existing code with the following code snippet. Be sure to replace the placeholder values for **documentEndpoint** and **primaryKey** following the directions in the code comments.
+1. Replace any existing code with the following code snippet.
 
     The code provides the overall structure of the app. Review the comments in the code to get an understanding of how it works. To complete the application, you add code in specified areas later in the exercise. 
 
